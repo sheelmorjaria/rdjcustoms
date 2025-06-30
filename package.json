@@ -1,0 +1,68 @@
+{
+  "name": "rdjcustoms-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RDJCustoms - Custom products and services e-commerce platform",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev:backend & npm run dev:frontend",
+    "dev:frontend": "npm run dev --workspace=@rdjcustoms/frontend",
+    "dev:backend": "npm run dev --workspace=@rdjcustoms/backend",
+    "build": "npm run build --workspace=@rdjcustoms/frontend",
+    "build:frontend": "npm run build --workspace=@rdjcustoms/frontend",
+    "start": "npm run start --workspace=@rdjcustoms/backend",
+    "start:backend": "npm run start --workspace=@rdjcustoms/backend",
+    "test": "npm run test --workspaces",
+    "test:frontend": "npm run test --workspace=@rdjcustoms/frontend",
+    "test:backend": "npm run test --workspace=@rdjcustoms/backend",
+    "test:unit": "npm run test:unit --workspaces --if-present",
+    "test:integration": "npm run test:integration --workspaces --if-present",
+    "test:e2e": "npm run test:e2e --workspaces --if-present",
+    "test:coverage": "npm run test:coverage --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "lint:fix": "npm run lint:fix --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",
+    "clean:frontend": "npm run clean --workspace=@rdjcustoms/frontend",
+    "clean:backend": "npm run clean --workspace=@rdjcustoms/backend",
+    "install:all": "npm install",
+    "seed": "npm run seed --workspace=@rdjcustoms/backend",
+    "create-admin": "npm run create-admin --workspace=@rdjcustoms/backend",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up",
+    "docker:down": "docker compose down",
+    "docker:dev": "docker compose -f docker-compose.dev.yml up",
+    "docker:test": "docker compose -f docker-compose.test.yml up --abort-on-container-exit",
+    "setup": "npm install && npm run seed && npm run create-admin",
+    "render:build:frontend": "npm install && npm run build --workspace=@rdjcustoms/frontend",
+    "render:build:backend": "npm install",
+    "render:start:backend": "npm run start --workspace=@rdjcustoms/backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/rdjcustoms-monorepo.git"
+  },
+  "keywords": [
+    "ecommerce",
+    "custom-products",
+    "monorepo",
+    "react",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "RDJCustoms Team",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "rimraf": "^6.0.1"
+  }
+}

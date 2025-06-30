@@ -1,0 +1,35 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/sheel/Documents/graphene-mono/backend/logs/.fb0e4a6a119e0c3d8307af1d40f7aa3234ef5c04-audit.json",
+    "files": [
+        {
+            "date": 1750346689653,
+            "name": "/home/sheel/Documents/graphene-mono/backend/logs/error-2025-06-19.log",
+            "hash": "2b26cc5fd0eb600d4e1f94873e74247a199b6982e4212268fb21df7fe6e7a291"
+        },
+        {
+            "date": 1750592594052,
+            "name": "/home/sheel/Documents/graphene-mono/backend/logs/error-2025-06-22.log",
+            "hash": "ee16295935769e2f5a0f92b307ccfe6f502856aedde20b113f64474e0319363d"
+        },
+        {
+            "date": 1750873013017,
+            "name": "/home/sheel/Documents/graphene-mono/backend/logs/error-2025-06-25.log",
+            "hash": "b933ed2311eba6c14949c5678c392bab1f9fd21b5e2bfe378fc39981ea7f1ab3"
+        },
+        {
+            "date": 1751098409451,
+            "name": "/home/sheel/Documents/graphene-mono/backend/logs/error-2025-06-28.log",
+            "hash": "5faaa4f86888050d6cb6d76fb7072e4c874c022dac0994204bc30f373c2e9c26"
+        },
+        {
+            "date": 1751294760907,
+            "name": "/home/sheel/Documents/graphene-mono/backend/logs/error-2025-06-30.log",
+            "hash": "56f8080a256ccb8acf5344d996acced4a1d39b7ac3ebaffb676b920c8e68d94f"
+        }
+    ],
+    "hashType": "sha256"
+}

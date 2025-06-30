@@ -1,0 +1,12 @@
+# Render redirects file
+# Documentation: https://render.com/docs/redirects-rewrites
+
+# SPA fallback - this must be last
+/*    /index.html   200
+
+# Add custom redirects above the SPA fallback
+# Example: Redirect www to non-www (uncomment and update domain)
+# https://www.yourdomain.com/* https://yourdomain.com/:splat 301!
+
+# Example: Redirect old domain to new domain
+# https://olddomain.com/* https://yourdomain.com/:splat 301!

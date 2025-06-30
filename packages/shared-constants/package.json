@@ -1,0 +1,23 @@
+{
+  "name": "@rdjcustoms/shared-constants",
+  "version": "1.0.0",
+  "description": "Shared constants for RDJCustoms monorepo",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./order-status": "./orderStatus.js",
+    "./payment-methods": "./paymentMethods.js",
+    "./product-conditions": "./productConditions.js"
+  },
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "constants",
+    "shared",
+    "rdjcustoms"
+  ],
+  "author": "RDJCustoms Team",
+  "license": "ISC"
+}

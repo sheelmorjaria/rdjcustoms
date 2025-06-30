@@ -1,0 +1,35 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/sheel/Documents/graphene-mono/backend/logs/.c603111430e43c001bd69eee46ea5df79c060472-audit.json",
+    "files": [
+        {
+            "date": 1750346689654,
+            "name": "/home/sheel/Documents/graphene-mono/backend/logs/combined-2025-06-19.log",
+            "hash": "b090345e89edf4fd9e5af7b18aa3058eacdbe45ea8f7097dc4292e01aea95b4c"
+        },
+        {
+            "date": 1750592594053,
+            "name": "/home/sheel/Documents/graphene-mono/backend/logs/combined-2025-06-22.log",
+            "hash": "3fdcf0a3f654876fcd3b07420877e1ec8dc3c95696cd85f24fe8093273df4036"
+        },
+        {
+            "date": 1750873013018,
+            "name": "/home/sheel/Documents/graphene-mono/backend/logs/combined-2025-06-25.log",
+            "hash": "daa7ae7a96d171afa50d48449a49b67b2de002ceac20914b71d1af67e3f10a00"
+        },
+        {
+            "date": 1751098409452,
+            "name": "/home/sheel/Documents/graphene-mono/backend/logs/combined-2025-06-28.log",
+            "hash": "25dc9f8d530aaa4b18a34f1f1e3c13c2036eff262d5175252203d1d68d9c2d38"
+        },
+        {
+            "date": 1751294760910,
+            "name": "/home/sheel/Documents/graphene-mono/backend/logs/combined-2025-06-30.log",
+            "hash": "080b278c7c7ff2b994f0e69077f6457ad76b219e2cd7c5d511c3fdde862fa196"
+        }
+    ],
+    "hashType": "sha256"
+}

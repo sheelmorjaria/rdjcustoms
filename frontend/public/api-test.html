@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Connection Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        pre {
+            background: #f0f0f0;
+            padding: 10px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Connection Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Configuration</h2>
+        <label>API Base URL: 
+            <input type="text" id="apiUrl" placeholder="https://your-api.onrender.com" style="width: 400px;">
+        </label>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <div id="results"></div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+        
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            resultsDiv.appendChild(div);
+        }
+
+        function logPre(data) {
+            const pre = document.createElement('pre');
+            pre.textContent = JSON.stringify(data, null, 2);
+            resultsDiv.appendChild(pre);
+        }
+
+        function clearResults() {
+            resultsDiv.innerHTML = '';
+        }
+
+        async function testEndpoint(name, url, options = {}) {
+            const section = document.createElement('div');
+            section.className = 'test-section';
+            section.innerHTML = `<h3>Test: ${name}</h3>`;
+            resultsDiv.appendChild(section);
+
+            try {
+                log(`Testing ${url}`, 'info');
+                const startTime = Date.now();
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    ...options
+                });
+                
+                const duration = Date.now() - startTime;
+                
+                log(`Response received in ${duration}ms`, 'info');
+                log(`Status: ${response.status} ${response.statusText}`, response.ok ? 'success' : 'error');
+                
+                // Log headers
+                const headers = {};
+                response.headers.forEach((value, key) => {
+                    headers[key] = value;
+                });
+                log('Response Headers:', 'info');
+                logPre(headers);
+                
+                // Try to parse response
+                const contentType = response.headers.get('content-type');
+                let data;
+                if (contentType && contentType.includes('application/json')) {
+                    data = await response.json();
+                    log('Response Body:', 'info');
+                    logPre(data);
+                } else {
+                    data = await response.text();
+                    log('Response Body (text):', 'info');
+                    logPre(data);
+                }
+                
+                return { success: response.ok, status: response.status, data, headers };
+                
+            } catch (error) {
+                log(`Error: ${error.message}`, 'error');
+                log(`Error Type: ${error.name}`, 'error');
+                if (error.stack) {
+                    logPre({ stack: error.stack });
+                }
+                return { success: false, error: error.message };
+            }
+        }
+
+        async function runAllTests() {
+            clearResults();
+            
+            const apiUrl = document.getElementById('apiUrl').value || window.location.origin.replace('3000', '3001');
+            log(`Using API URL: ${apiUrl}`, 'info');
+            
+            // Test 1: Root endpoint
+            await testEndpoint('Root Endpoint', apiUrl);
+            
+            // Test 2: Health check
+            await testEndpoint('Health Check', `${apiUrl}/api/health`);
+            
+            // Test 3: Products without credentials
+            await testEndpoint('Products (no credentials)', `${apiUrl}/api/products`);
+            
+            // Test 4: Products with credentials
+            await testEndpoint('Products (with credentials)', `${apiUrl}/api/products`, {
+                credentials: 'include'
+            });
+            
+            // Test 5: CORS preflight
+            await testEndpoint('CORS Preflight', `${apiUrl}/api/products`, {
+                method: 'OPTIONS',
+                headers: {
+                    'Access-Control-Request-Method': 'GET',
+                    'Access-Control-Request-Headers': 'content-type',
+                    'Origin': window.location.origin
+                }
+            });
+            
+            // Summary
+            const summary = document.createElement('div');
+            summary.className = 'test-section';
+            summary.innerHTML = '<h2>Summary</h2>';
+            summary.innerHTML += '<p>Tests completed. Check the results above.</p>';
+            summary.innerHTML += '<h3>Quick Fixes:</h3>';
+            summary.innerHTML += '<ul>';
+            summary.innerHTML += '<li>If getting CORS errors: Update backend CORS_ORIGINS to include this domain</li>';
+            summary.innerHTML += '<li>If getting 404: Check if API URL is correct</li>';
+            summary.innerHTML += '<li>If getting network errors: Check if backend is running</li>';
+            summary.innerHTML += '<li>Make sure VITE_API_BASE_URL is set in Render (not VITE_API_URL)</li>';
+            summary.innerHTML += '</ul>';
+            resultsDiv.appendChild(summary);
+        }
+
+        // Auto-detect API URL
+        window.onload = () => {
+            const currentUrl = window.location.origin;
+            let suggestedApiUrl = '';
+            
+            if (currentUrl.includes('onrender.com')) {
+                // If on Render, suggest the API URL
+                suggestedApiUrl = currentUrl.replace('frontend', 'api');
+            } else if (currentUrl.includes('localhost')) {
+                // If local, suggest localhost:3001
+                suggestedApiUrl = 'http://localhost:3001';
+            }
+            
+            if (suggestedApiUrl) {
+                document.getElementById('apiUrl').value = suggestedApiUrl;
+            }
+        };
+    </script>
+</body>
+</html>

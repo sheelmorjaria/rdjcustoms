@@ -1,0 +1,6 @@
+2025-06-19 22:10:10:1010 [32minfo[39m: [32mEmail service disabled - using mock mode[39m
+⚠️  Sentry not initialized - missing SENTRY_DSN or not in production
+⚠️  New Relic not initialized - missing license key or not in production
+2025-06-19 22:10:11:1011 [32minfo[39m: [32mMongoDB connected successfully with connection pooling[39m
+2025-06-19 22:10:11:1011 [32minfo[39m: [32mServer running on port 3000[39m
+2025-06-19 22:10:11:1011 [32minfo[39m: [32mEnvironment: development[39m
