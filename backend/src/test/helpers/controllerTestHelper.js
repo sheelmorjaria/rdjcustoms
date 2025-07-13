@@ -133,7 +133,7 @@ export class ControllerTestHelper {
       commitTransaction: vi.fn().mockResolvedValue(undefined),
       abortTransaction: vi.fn().mockResolvedValue(undefined),
       endSession: vi.fn().mockResolvedValue(undefined),
-      withTransaction: vi.fn(async (fn) => await fn()),
+      withTransaction: vi.fn(async (fn) => fn()),
       inTransaction: vi.fn().mockReturnValue(false),
       id: `mock-session-${Date.now()}`,
       transaction: { state: 'NO_TRANSACTION' }

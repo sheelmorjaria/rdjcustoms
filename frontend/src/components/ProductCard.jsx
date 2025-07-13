@@ -116,7 +116,7 @@ const ProductCard = ({ product }) => {
         {/* Condition Badge */}
         <div className="mb-2">
           <span className={getConditionBadgeClass(condition)}>
-            <SafeContent content={capitalize(condition)} />
+            <SafeContent content={capitalize(condition)} as="span" />
           </span>
         </div>
 
@@ -125,7 +125,7 @@ const ProductCard = ({ product }) => {
           data-testid="product-title"
           className="text-lg font-semibold text-forest-800 mb-2 line-clamp-1"
         >
-          <SafeContent content={name} maxLength={100} />
+          <SafeContent content={name} maxLength={100} as="span" />
         </h3>
 
         {/* Short Description */}
@@ -133,7 +133,7 @@ const ProductCard = ({ product }) => {
           data-testid="product-description"
           className="text-forest-600 text-sm mb-3 line-clamp-2"
         >
-          <SafeContent content={shortDescription} maxLength={200} />
+          <SafeContent content={shortDescription} maxLength={200} as="span" />
         </p>
 
         {/* Price and Stock Status */}

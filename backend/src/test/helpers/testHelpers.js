@@ -109,7 +109,7 @@ export const createMockProduct = (overrides = {}) => ({
 /**
  * Mock database operations
  */
-export const createMockModel = (modelName = 'Model') => ({
+export const createMockModel = (_modelName = 'Model') => ({
   find: vi.fn().mockReturnValue({
     populate: vi.fn().mockReturnThis(),
     sort: vi.fn().mockReturnThis(),
@@ -352,5 +352,5 @@ export const describeE2E = (name, tests) => describe(`${name} - E2E Tests`, test
 /**
  * Skip tests conditionally
  */
-export const skipIf = (condition, reason) => condition ? describe.skip : describe;
-export const skipUnless = (condition, reason) => condition ? describe : describe.skip;
+export const skipIf = (condition, _reason) => condition ? describe.skip : describe;
+export const skipUnless = (condition, _reason) => condition ? describe : describe.skip;

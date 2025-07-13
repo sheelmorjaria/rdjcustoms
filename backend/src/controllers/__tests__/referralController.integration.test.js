@@ -10,8 +10,8 @@ import Order from '../../models/Order.js';
 describe('Referral Controller - Integration Tests', () => {
   let testUser;
   let referrerUser;
-  let authToken;
-  let referrerToken;
+  let _authToken;
+  let _referrerToken;
 
   beforeAll(async () => {
     // Connect to test database

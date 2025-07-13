@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
+import _helmet from 'helmet';
+import _rateLimit from 'express-rate-limit';
 import compression from 'compression';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
@@ -26,7 +26,7 @@ import { notFound } from './middleware/notFound.js';
 import { inputSanitization } from './middleware/inputSanitization.js';
 import { cspNonce, dynamicCSP, routeSpecificCSP, apiSecurityHeaders } from './middleware/csp.js';
 import { responseSanitization, validateResponseContentType } from './middleware/responseSanitization.js';
-import { securityAuditMiddleware, securityAuditLogger, SECURITY_EVENT_TYPES } from './middleware/securityAuditLogger.js';
+import { securityAuditMiddleware, securityAuditLogger as _securityAuditLogger, SECURITY_EVENT_TYPES as _SECURITY_EVENT_TYPES } from './middleware/securityAuditLogger.js';
 import { securityHeaders, corsConfig, rateLimiters } from './config/security.js';
 import { referralTrackingMiddleware, addReferralContext } from './middleware/referralTracking.js';
 

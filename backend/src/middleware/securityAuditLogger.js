@@ -351,25 +351,25 @@ class SecurityAuditLogger {
    */
   writeSecurityLog(logEntry) {
     switch (logEntry.severity) {
-      case SECURITY_SEVERITY.CRITICAL:
-        logger.error('SECURITY CRITICAL', logEntry);
-        this.sendSecurityAlert(logEntry);
-        break;
-      case SECURITY_SEVERITY.HIGH:
-        logger.warn('SECURITY HIGH', logEntry);
-        this.sendSecurityAlert(logEntry);
-        break;
-      case SECURITY_SEVERITY.MEDIUM:
-        logger.warn('SECURITY MEDIUM', logEntry);
-        break;
-      case SECURITY_SEVERITY.LOW:
-        logger.info('SECURITY LOW', logEntry);
-        break;
-      case SECURITY_SEVERITY.INFO:
-        logger.debug('SECURITY INFO', logEntry);
-        break;
-      default:
-        logger.info('SECURITY EVENT', logEntry);
+    case SECURITY_SEVERITY.CRITICAL:
+      logger.error('SECURITY CRITICAL', logEntry);
+      this.sendSecurityAlert(logEntry);
+      break;
+    case SECURITY_SEVERITY.HIGH:
+      logger.warn('SECURITY HIGH', logEntry);
+      this.sendSecurityAlert(logEntry);
+      break;
+    case SECURITY_SEVERITY.MEDIUM:
+      logger.warn('SECURITY MEDIUM', logEntry);
+      break;
+    case SECURITY_SEVERITY.LOW:
+      logger.info('SECURITY LOW', logEntry);
+      break;
+    case SECURITY_SEVERITY.INFO:
+      logger.debug('SECURITY INFO', logEntry);
+      break;
+    default:
+      logger.info('SECURITY EVENT', logEntry);
     }
   }
 
@@ -460,7 +460,7 @@ class SecurityAuditLogger {
   /**
    * Get recent event count for IP
    */
-  getRecentEventCount(eventType, ip, timeWindow = 60 * 60 * 1000) {
+  getRecentEventCount(eventType, ip, _timeWindow = 60 * 60 * 1000) {
     // In a real implementation, this would query a database or cache
     // For now, return a mock count
     return Math.floor(Math.random() * 3);

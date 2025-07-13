@@ -8,12 +8,12 @@ import {
   setDefaultAddress, 
   clearDefaultAddress,
   // Legacy compatibility
-  getUserAddresses, 
-  addUserAddress, 
-  updateUserAddress, 
-  deleteUserAddress 
+  getUserAddresses as _getUserAddresses, 
+  addUserAddress as _addUserAddress, 
+  updateUserAddress as _updateUserAddress, 
+  deleteUserAddress as _deleteUserAddress 
 } from '../controllers/userAddressController.js';
-import { getUserOrders, getUserOrderDetails, placeOrder, cancelOrder, getEligibleReturnItems } from '../controllers/userOrderController.js';
+import { getUserOrders, getUserOrderDetails, placeOrder, cancelOrder, getEligibleReturnItems, getOrderTracking } from '../controllers/userOrderController.js';
 import { getUserReturnRequests, getReturnRequestDetails, submitReturnRequest } from '../controllers/userReturnController.js';
 import { authenticate } from '../middleware/auth.js';
 import wishlistRoutes from './wishlist.js';
@@ -44,6 +44,7 @@ router.delete('/addresses/default', clearDefaultAddress);
 // Order management routes
 router.get('/orders', getUserOrders);
 router.get('/orders/:orderId', getUserOrderDetails);
+router.get('/orders/:orderId/tracking', getOrderTracking);
 router.post('/orders/place-order', placeOrder);
 router.post('/orders/:orderId/cancel', cancelOrder);
 router.get('/orders/:orderId/eligible-returns', getEligibleReturnItems);

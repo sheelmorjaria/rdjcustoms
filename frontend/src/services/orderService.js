@@ -223,3 +223,31 @@ export const cancelOrder = async (orderId) => {
     throw error;
   }
 };
+
+// Get order tracking information
+export const getOrderTracking = async (orderId) => {
+  try {
+    if (!orderId) {
+      throw new Error('Order ID is required');
+    }
+
+    const response = await fetch(`${API_BASE_URL}/user/orders/${orderId}/tracking`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include'
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to fetch tracking information');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Get order tracking error:', error);
+    throw error;
+  }
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import CustomerReferralDashboardPage from '../CustomerReferralDashboardPage';
@@ -187,11 +187,18 @@ describe('CustomerReferralDashboardPage', () => {
         expect(screen.getByText('Referral Dashboard')).toBeInTheDocument();
       });
 
-      // Check stats are displayed
-      expect(screen.getByText('5')).toBeInTheDocument(); // Total referrals
-      expect(screen.getByText('3')).toBeInTheDocument(); // Successful referrals
-      expect(screen.getByText('2')).toBeInTheDocument(); // Total rewards
-      expect(screen.getByText('1')).toBeInTheDocument(); // Active rewards
+      // Check stats are displayed with context
+      const totalReferralsSection = screen.getByText('Total Referrals').closest('div');
+      expect(within(totalReferralsSection).getByText('5')).toBeInTheDocument();
+      
+      const successfulReferralsSection = screen.getByText('Successful Referrals').closest('div');
+      expect(within(successfulReferralsSection).getByText('3')).toBeInTheDocument();
+      
+      const totalRewardsSection = screen.getByText('Total Rewards').closest('div');
+      expect(within(totalRewardsSection).getByText('2')).toBeInTheDocument();
+      
+      const activeRewardsSection = screen.getByText('Active Rewards').closest('div');
+      expect(within(activeRewardsSection).getByText('1')).toBeInTheDocument();
     });
 
     it('should display referral link section', async () => {

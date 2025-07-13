@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
 
@@ -30,9 +30,9 @@ function AdminCategoryFormPage() {
     if (isEditMode && categoryId) {
       loadCategory();
     }
-  }, [isEditMode, categoryId]);
+  }, [isEditMode, categoryId, loadCategories, loadCategory]);
 
-  const loadCategories = async () => {
+  const loadCategories = useCallback(async () => {
     try {
       const token = localStorage.getItem('adminToken');
       if (!token) return;
@@ -55,9 +55,9 @@ function AdminCategoryFormPage() {
     } catch (err) {
       console.error('Failed to load categories:', err);
     }
-  };
+  }, [isEditMode, categoryId]);
 
-  const loadCategory = async () => {
+  const loadCategory = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -93,7 +93,7 @@ function AdminCategoryFormPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [categoryId]);
 
   const generateSlug = (name) => {
     return name

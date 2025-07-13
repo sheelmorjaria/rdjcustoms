@@ -24,7 +24,7 @@ vi.mock('@aws-sdk/credential-providers', () => ({
 describe('Email Service - Comprehensive Tests', () => {
   let emailService;
   
-  const originalEnv = process.env;
+  const _originalEnv = process.env;
 
   beforeEach(async () => {
     // Reset mocks

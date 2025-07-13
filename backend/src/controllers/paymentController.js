@@ -235,16 +235,16 @@ export const createPayPalOrder = async (req, res) => {
           if (!userId || promotion.canUserUse(userId)) {
             // Calculate discount
             switch (promotion.type) {
-              case 'percentage':
-                discountAmount = Math.round(cartTotal * (promotion.value / 100) * 100) / 100;
-                break;
-              case 'fixed_amount':
-                discountAmount = Math.min(promotion.value, cartTotal);
-                break;
-              case 'free_shipping':
-                shippingCost = 0;
-                discountAmount = calculation.cost;
-                break;
+            case 'percentage':
+              discountAmount = Math.round(cartTotal * (promotion.value / 100) * 100) / 100;
+              break;
+            case 'fixed_amount':
+              discountAmount = Math.min(promotion.value, cartTotal);
+              break;
+            case 'free_shipping':
+              shippingCost = 0;
+              discountAmount = calculation.cost;
+              break;
             }
             appliedPromotion = promotion;
           }
@@ -1432,16 +1432,16 @@ export const applyPromotionCode = async (req, res) => {
     // Calculate discount amount
     let discountAmount = 0;
     switch (promotion.type) {
-      case 'percentage':
-        discountAmount = Math.round(applicableAmount * (promotion.value / 100) * 100) / 100;
-        break;
-      case 'fixed_amount':
-        discountAmount = Math.min(promotion.value, applicableAmount);
-        break;
-      case 'free_shipping':
-        // For free shipping, we'll store the promotion but calculate discount during checkout
-        discountAmount = 0;
-        break;
+    case 'percentage':
+      discountAmount = Math.round(applicableAmount * (promotion.value / 100) * 100) / 100;
+      break;
+    case 'fixed_amount':
+      discountAmount = Math.min(promotion.value, applicableAmount);
+      break;
+    case 'free_shipping':
+      // For free shipping, we'll store the promotion but calculate discount during checkout
+      discountAmount = 0;
+      break;
     }
 
     // Store promotion code in cart

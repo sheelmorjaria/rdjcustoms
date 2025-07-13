@@ -23,7 +23,7 @@ export default [
       'comma-dangle': ['error', 'never'],
       
       // Best practices
-      'no-unused-vars': ['error', { 'argsIgnorePattern': '^_' }],
+      'no-unused-vars': ['error', { 'argsIgnorePattern': '^_', 'varsIgnorePattern': '^_' }],
       'no-console': 'warn',
       'no-debugger': 'error',
       'no-eval': 'error',
@@ -47,9 +47,28 @@ export default [
     }
   },
   {
-    files: ['**/*.test.js', '**/__tests__/**/*.js'],
+    files: ['**/*.test.js', '**/__tests__/**/*.js', '**/*test*.js'],
+    languageOptions: {
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        beforeAll: 'readonly',
+        afterEach: 'readonly',
+        afterAll: 'readonly',
+        vi: 'readonly',
+        jest: 'readonly'
+      }
+    },
     rules: {
-      'no-console': 'off'
+      'no-console': 'off',
+      'no-unused-vars': ['error', { 
+        'argsIgnorePattern': '^_',
+        'varsIgnorePattern': '^_'
+      }],
+      'comma-dangle': 'off'
     }
   }
 ];

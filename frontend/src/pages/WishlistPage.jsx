@@ -6,8 +6,8 @@ import { getWishlist, removeFromWishlist, addToCartFromWishlist } from '../servi
 import LoadingSpinner from '../components/LoadingSpinner';
 
 const WishlistPage = () => {
-  const { user, isAuthenticated } = useAuth();
-  const { addToCart, cartItems } = useContext(CartContext);
+  const { user: _user, isAuthenticated } = useAuth();
+  const { addToCart, cartItems: _cartItems } = useContext(CartContext);
   
   const [wishlist, setWishlist] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

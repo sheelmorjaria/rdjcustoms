@@ -1,4 +1,4 @@
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { vi, describe, it, expect, beforeEach, afterEach as _afterEach } from 'vitest';
 import mongoose from 'mongoose';
 import * as paymentController from '../paymentController.js';
 import Cart from '../../models/Cart.js';

@@ -16,7 +16,7 @@ export const escapeHtml = (str) => {
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    "'": '&#x27;',
+    '\'': '&#x27;',
     '/': '&#x2F;',
     '`': '&#x60;',
     '=': '&#x3D;'
@@ -174,7 +174,7 @@ export const sanitizeMongoQuery = (query) => {
   // Convert to JSON and back to remove functions and other dangerous content
   try {
     const jsonString = JSON.stringify(query);
-    const parsed = JSON.parse(jsonString);
+    // const parsed = JSON.parse(jsonString);
     
     // Remove dangerous operators
     const dangerousOperators = ['$where', '$regex', '$expr'];
@@ -357,25 +357,25 @@ export const validateAndSanitizeInput = (input, type = 'text', options = {}) => 
 
   // Type-specific validation
   switch (type) {
-    case 'email':
-      validation.sanitized = sanitizeEmail(sanitized);
-      validation.isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(validation.sanitized);
-      break;
+  case 'email':
+    validation.sanitized = sanitizeEmail(sanitized);
+    validation.isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(validation.sanitized);
+    break;
       
-    case 'url':
-      validation.sanitized = sanitizeUrl(sanitized);
-      validation.isValid = validation.sanitized.length > 0;
-      break;
+  case 'url':
+    validation.sanitized = sanitizeUrl(sanitized);
+    validation.isValid = validation.sanitized.length > 0;
+    break;
       
-    case 'phone':
-      validation.sanitized = sanitizePhone(sanitized);
-      validation.isValid = /^[\+]?[1-9][\d\s\-\(\)]{7,14}$/.test(validation.sanitized);
-      break;
+  case 'phone':
+    validation.sanitized = sanitizePhone(sanitized);
+    validation.isValid = /^[\+]?[1-9][\d\s\-\(\)]{7,14}$/.test(validation.sanitized);
+    break;
       
-    case 'filename':
-      validation.sanitized = sanitizeFileName(sanitized);
-      validation.isValid = validation.sanitized !== 'untitled';
-      break;
+  case 'filename':
+    validation.sanitized = sanitizeFileName(sanitized);
+    validation.isValid = validation.sanitized !== 'untitled';
+    break;
   }
 
   // Mark as invalid if threats were detected

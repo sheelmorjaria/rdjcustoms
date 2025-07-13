@@ -4,13 +4,13 @@
  */
 
 import { vi, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 
 // Setup global test utilities
 global.vi = vi;
 
 // Mock MongoDB connection for performance tests
-let mockConnection = {
+const mockConnection = {
   readyState: 1, // Connected
   collections: {
     users: { deleteMany: vi.fn(), insertMany: vi.fn(), find: vi.fn() },
@@ -225,7 +225,7 @@ export const createTestOrders = (count = 25) => {
 };
 
 // Fast performance measurement utilities
-export const measureExecutionTime = async (fn, label = 'Operation') => {
+export const measureExecutionTime = async (fn, _label = 'Operation') => {
   const start = process.hrtime.bigint();
   const result = await fn();
   const end = process.hrtime.bigint();
@@ -234,7 +234,7 @@ export const measureExecutionTime = async (fn, label = 'Operation') => {
   return { result, duration };
 };
 
-export const measureMemoryUsage = (label = 'Memory') => {
+export const measureMemoryUsage = (_label = 'Memory') => {
   const usage = process.memoryUsage();
   return {
     rss: Math.round(usage.rss / 1024 / 1024),
@@ -251,17 +251,17 @@ export const mockDatabaseOperations = {
     return { insertedId: `mock-${collection}-id`, insertedCount: Array.isArray(data) ? data.length : 1 };
   }),
   
-  fastFind: vi.fn().mockImplementation(async (collection, query = {}) => {
+  fastFind: vi.fn().mockImplementation(async (collection, _query = {}) => {
     // Simulate fast database find
     return [];
   }),
   
-  fastUpdate: vi.fn().mockImplementation(async (collection, query, update) => {
+  fastUpdate: vi.fn().mockImplementation(async (_collection, _query, _update) => {
     // Simulate fast database update
     return { modifiedCount: 1, matchedCount: 1 };
   }),
   
-  fastDelete: vi.fn().mockImplementation(async (collection, query) => {
+  fastDelete: vi.fn().mockImplementation(async (_collection, _query) => {
     // Simulate fast database delete
     return { deletedCount: 1 };
   })

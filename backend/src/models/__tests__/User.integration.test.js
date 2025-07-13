@@ -8,7 +8,7 @@ beforeAll(() => {
 
 // Import real mongoose and bcrypt after clearing mocks  
 const mongoose = await import('mongoose');
-const bcrypt = await import('bcryptjs');
+const _bcrypt = await import('bcryptjs');
 const crypto = await import('crypto');
 
 // Create a simple hash function that mimics bcrypt for testing
@@ -237,7 +237,7 @@ realUserSchema.statics.findActiveUsers = function() {
 };
 
 // Create the test model
-const TestUser = mongoose.default.model('TestUser', realUserSchema);
+const _TestUser = mongoose.default.model('TestUser', realUserSchema);
 
 describe('User Model Integration Tests', () => {
   // Using real-like behavior with in-memory storage

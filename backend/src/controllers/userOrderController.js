@@ -3,6 +3,7 @@ import Cart from '../models/Cart.js';
 import Product from '../models/Product.js';
 import ShippingMethod from '../models/ShippingMethod.js';
 import emailService from '../services/emailService.js';
+import carrierTrackingService from '../services/carrierTrackingService.js';
 import mongoose from 'mongoose';
 
 // Get user's order history with pagination
@@ -669,6 +670,113 @@ export const getEligibleReturnItems = async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Server error occurred while fetching eligible return items'
+    });
+  }
+};
+
+// Get order tracking information
+export const getOrderTracking = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { orderId } = req.params;
+
+    // Validate order ID format
+    if (!mongoose.Types.ObjectId.isValid(orderId)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid order ID format'
+      });
+    }
+
+    // Find order by ID and ensure it belongs to the authenticated user
+    const order = await Order.findOne({ 
+      _id: orderId, 
+      userId 
+    });
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        error: 'Order not found'
+      });
+    }
+
+    // Check if tracking information is available
+    if (!order.trackingNumber || !order.carrier) {
+      return res.status(400).json({
+        success: false,
+        error: 'Tracking information not available for this order yet'
+      });
+    }
+
+    // Check if we need to refresh tracking data
+    const shouldRefresh = carrierTrackingService.shouldRefreshTracking(order.trackingLastUpdated);
+    
+    let trackingData;
+    if (shouldRefresh) {
+      try {
+        // Fetch fresh tracking data from carrier API
+        trackingData = await carrierTrackingService.getTrackingInfo(order.carrier, order.trackingNumber);
+        
+        // Update order with new tracking data
+        order.trackingHistory = trackingData.trackingHistory;
+        order.estimatedDeliveryDate = trackingData.estimatedDeliveryDate;
+        order.trackingLastUpdated = new Date();
+        order.trackingUrl = trackingData.trackingUrl;
+        
+        await order.save();
+      } catch (trackingError) {
+        console.error('Error fetching tracking data:', trackingError);
+        // Fall back to cached data if available
+        if (order.trackingHistory && order.trackingHistory.length > 0) {
+          trackingData = {
+            trackingNumber: order.trackingNumber,
+            carrier: order.carrier,
+            currentStatus: order.trackingHistory[order.trackingHistory.length - 1].status,
+            estimatedDeliveryDate: order.estimatedDeliveryDate,
+            trackingHistory: order.trackingHistory,
+            trackingUrl: order.trackingUrl || carrierTrackingService.generateTrackingUrl(order.carrier, order.trackingNumber),
+            lastUpdated: order.trackingLastUpdated
+          };
+        } else {
+          return res.status(503).json({
+            success: false,
+            error: 'Unable to fetch tracking information at this time. Please try again later.'
+          });
+        }
+      }
+    } else {
+      // Use cached data
+      trackingData = {
+        trackingNumber: order.trackingNumber,
+        carrier: order.carrier,
+        currentStatus: order.trackingHistory && order.trackingHistory.length > 0 
+          ? order.trackingHistory[order.trackingHistory.length - 1].status 
+          : 'Unknown',
+        estimatedDeliveryDate: order.estimatedDeliveryDate,
+        trackingHistory: order.trackingHistory || [],
+        trackingUrl: order.trackingUrl || carrierTrackingService.generateTrackingUrl(order.carrier, order.trackingNumber),
+        lastUpdated: order.trackingLastUpdated
+      };
+    }
+
+    res.json({
+      success: true,
+      data: {
+        orderId: order._id,
+        orderNumber: order.orderNumber,
+        orderDate: order.orderDate,
+        totalAmount: order.totalAmount,
+        shippingAddress: order.shippingAddress,
+        tracking: trackingData
+      }
+    });
+
+  } catch (error) {
+    console.error('Get order tracking error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Server error occurred while fetching tracking information'
     });
   }
 };

@@ -15,7 +15,7 @@ const mockProduct = {
   condition: 'new',
   stockStatus: 'in_stock',
   stockQuantity: 25,
-   [
+  features: [
     { name: 'Display', value: '6.3" OLED' }
   ],
   category: {

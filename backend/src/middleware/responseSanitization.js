@@ -14,7 +14,7 @@ const sanitizeResponseData = (data, options = {}) => {
     maxDepth = 10,
     currentDepth = 0,
     sanitizeHtml = true,
-    preserveArrays = true,
+    _preserveArrays = true,
     excludeFields = ['id', '_id', 'createdAt', 'updatedAt', 'password', 'token']
   } = options;
 

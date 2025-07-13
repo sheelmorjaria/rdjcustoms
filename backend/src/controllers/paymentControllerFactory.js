@@ -17,17 +17,17 @@ export function createPaymentController(overrides = {}) {
     models: {
       Cart,
       Product,
-      Order,
+      Order
     },
     services: {
       bitcoinService,
       moneroService,
       paypalService,
-      emailService,
+      emailService
     },
     database: {
       mongoose,
-      startSession: () => mongoose.startSession(),
+      startSession: () => mongoose.startSession()
     },
     logger,
     logError,

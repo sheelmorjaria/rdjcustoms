@@ -415,6 +415,44 @@ const orderSchema = new mongoose.Schema({
     trim: true,
     maxlength: 500
   },
+  carrier: {
+    type: String,
+    trim: true,
+    maxlength: 50,
+    enum: {
+      values: ['UPS', 'FedEx', 'DHL', 'USPS', 'Royal Mail', 'Other'],
+      message: 'Carrier must be one of: UPS, FedEx, DHL, USPS, Royal Mail, Other'
+    }
+  },
+  trackingHistory: [{
+    status: {
+      type: String,
+      required: [true, 'Tracking status is required'],
+      trim: true,
+      maxlength: 100
+    },
+    description: {
+      type: String,
+      required: [true, 'Tracking description is required'],
+      trim: true,
+      maxlength: 500
+    },
+    location: {
+      type: String,
+      trim: true,
+      maxlength: 200
+    },
+    timestamp: {
+      type: Date,
+      required: [true, 'Tracking timestamp is required']
+    }
+  }],
+  estimatedDeliveryDate: {
+    type: Date
+  },
+  trackingLastUpdated: {
+    type: Date
+  },
   notes: {
     type: String,
     trim: true,

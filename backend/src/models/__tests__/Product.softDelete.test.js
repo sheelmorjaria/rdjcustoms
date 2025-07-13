@@ -1,4 +1,4 @@
-import { describe, it, test, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it as _it, test, expect, beforeEach, afterEach, vi } from 'vitest';
 // import mongoose from 'mongoose'; // For future database integration tests
 import Product from '../Product.js';
 

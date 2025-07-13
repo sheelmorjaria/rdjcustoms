@@ -602,7 +602,8 @@ const getValidStatusTransitions = () => {
     'pending': ['processing', 'cancelled'],
     'processing': ['awaiting_shipment', 'shipped', 'cancelled'],
     'awaiting_shipment': ['shipped', 'cancelled'],
-    'shipped': ['delivered', 'cancelled'],
+    'shipped': ['out_for_delivery', 'delivered', 'cancelled'],
+    'out_for_delivery': ['delivered', 'cancelled'],
     'delivered': ['returned'], // Can be returned after delivery
     'cancelled': [],
     'returned': [] // Final state for returned items
@@ -620,7 +621,7 @@ export const updateOrderStatus = async (req, res) => {
   
   try {
     const { orderId } = req.params;
-    const { newStatus, trackingNumber, trackingUrl } = req.body;
+    const { newStatus, trackingNumber, trackingUrl, carrier } = req.body;
 
     // Validate input
     if (!orderId) {
@@ -659,13 +660,31 @@ export const updateOrderStatus = async (req, res) => {
 
       // If status is 'shipped', validate tracking information
       if (newStatus === 'shipped') {
-        if (!trackingNumber || !trackingUrl) {
-          throw new Error('Tracking number and tracking URL are required for shipped status');
+        if (!trackingNumber || !carrier) {
+          throw new Error('Tracking number and carrier are required for shipped status');
         }
         
         // Update tracking information
         order.trackingNumber = trackingNumber.trim();
-        order.trackingUrl = trackingUrl.trim();
+        order.carrier = carrier.trim();
+        
+        // Set tracking URL if provided, otherwise generate one
+        if (trackingUrl) {
+          order.trackingUrl = trackingUrl.trim();
+        } else {
+          // Import carrier tracking service to generate URL
+          const carrierTrackingService = await import('../services/carrierTrackingService.js');
+          order.trackingUrl = carrierTrackingService.default.generateTrackingUrl(carrier, trackingNumber);
+        }
+        
+        // Initialize tracking with the first event
+        order.trackingHistory = [{
+          status: 'Shipped',
+          description: `Package picked up by ${carrier}`,
+          location: 'Origin',
+          timestamp: new Date()
+        }];
+        order.trackingLastUpdated = new Date();
       }
 
       // If status is 'cancelled', handle stock restoration and refund

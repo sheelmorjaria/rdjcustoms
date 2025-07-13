@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const TaxSettings = ({ onMessage }) => {
   const [taxRates, setTaxRates] = useState([]);
@@ -45,11 +45,7 @@ const TaxSettings = ({ onMessage }) => {
     { value: 'other', label: 'Other' }
   ];
 
-  useEffect(() => {
-    loadTaxRates();
-  }, []);
-
-  const loadTaxRates = async () => {
+  const loadTaxRates = useCallback(async () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('adminToken');
@@ -75,7 +71,11 @@ const TaxSettings = ({ onMessage }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [onMessage]);
+
+  useEffect(() => {
+    loadTaxRates();
+  }, [loadTaxRates]);
 
   const openModal = (taxRate = null) => {
     if (taxRate) {

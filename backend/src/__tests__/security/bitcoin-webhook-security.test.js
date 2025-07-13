@@ -12,7 +12,7 @@ describe('Bitcoin Webhook Security Tests', () => {
   let app;
   let mongoServer;
   let testUser;
-  let testOrder;
+  let _testOrder;
   const testBitcoinAddress = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa';
   
   beforeAll(async () => {
@@ -34,7 +34,7 @@ describe('Bitcoin Webhook Security Tests', () => {
       password: 'hashedpassword123'
     });
 
-    testOrder = await Order.create({
+    _testOrder = await Order.create({
       userId: testUser._id,
       orderNumber: 'ORD-BTC-SEC-TEST-456',
       customerEmail: 'test@example.com',

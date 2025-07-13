@@ -32,33 +32,33 @@ export default defineConfig({
     /* Extra HTTP headers */
     extraHTTPHeaders: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'] }
     },
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { ...devices['Desktop Firefox'] }
     },
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: { ...devices['Desktop Safari'] }
     },
     /* Test against mobile viewports. */
     {
       name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
+      use: { ...devices['Pixel 5'] }
     },
     {
       name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
-    },
+      use: { ...devices['iPhone 12'] }
+    }
   ],
 
   /* Global setup for MSW */
@@ -76,7 +76,7 @@ export default defineConfig({
   /* Test timeout */
   timeout: 30 * 1000,
   expect: {
-    timeout: 10 * 1000,
+    timeout: 10 * 1000
   },
 
   /* Output directories */
@@ -89,5 +89,5 @@ export default defineConfig({
   ],
 
   /* Global test configuration */
-  globalTimeout: 10 * 60 * 1000, // 10 minutes
+  globalTimeout: 10 * 60 * 1000 // 10 minutes
 });

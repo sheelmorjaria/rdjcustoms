@@ -78,27 +78,27 @@ export const createMockModel = (modelName, defaultData = {}) => {
   });
 
   // Static methods
-  mockModel.find = vi.fn().mockImplementation((query = {}) => {
+  mockModel.find = vi.fn().mockImplementation((_query = {}) => {
     const mockQuery = createMockQuery([]);
     return mockQuery;
   });
 
-  mockModel.findOne = vi.fn().mockImplementation((query = {}) => {
+  mockModel.findOne = vi.fn().mockImplementation((_query = {}) => {
     const mockQuery = createMockQuery(null);
     return mockQuery;
   });
 
-  mockModel.findById = vi.fn().mockImplementation((id) => {
+  mockModel.findById = vi.fn().mockImplementation((_id) => {
     const mockQuery = createMockQuery(null);
     return mockQuery;
   });
 
-  mockModel.findByIdAndUpdate = vi.fn().mockImplementation((id, update, options = {}) => {
+  mockModel.findByIdAndUpdate = vi.fn().mockImplementation((_id, update, _options = {}) => {
     const mockQuery = createMockQuery(null);
     return mockQuery;
   });
 
-  mockModel.findOneAndUpdate = vi.fn().mockImplementation((query, update, options = {}) => {
+  mockModel.findOneAndUpdate = vi.fn().mockImplementation((query, update, _options = {}) => {
     const mockQuery = createMockQuery(null);
     return mockQuery;
   });

@@ -30,7 +30,7 @@ mongoose.model = function(name, schema, collection, options) {
 let mongoServer;
 let mongoUri;
 let useDocker = false;
-let sharedDockerContainer = null;
+const _sharedDockerContainer = null;
 
 // Setup global test utilities
 global.vi = vi;
@@ -136,7 +136,7 @@ beforeAll(async () => {
     // Check environment variable for forced mode
     const forceMemoryServer = process.env.FORCE_MEMORY_SERVER === 'true';
     const useExistingMongo = process.env.MONGO_URI;
-    const keepDockerRunning = process.env.KEEP_DOCKER_RUNNING === 'true';
+    const _keepDockerRunning = process.env.KEEP_DOCKER_RUNNING === 'true';
     
     if (useExistingMongo) {
       // Use existing MongoDB instance (e.g., in CI/CD)
@@ -165,7 +165,7 @@ beforeAll(async () => {
     await mongoose.connect(mongoUri, {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
+      socketTimeoutMS: 45000
     });
     
     console.log(`Integration test database connected (${useDocker ? 'Docker Shared' : useExistingMongo ? 'External' : 'Memory Server'})`);
@@ -183,7 +183,7 @@ afterAll(async () => {
     }
     
     // Keep connection open if we're using shared Docker
-    const keepDockerRunning = process.env.KEEP_DOCKER_RUNNING === 'true';
+    const _keepDockerRunning = process.env.KEEP_DOCKER_RUNNING === 'true';
     
     if (!keepDockerRunning || !useDocker) {
       // Close database connection

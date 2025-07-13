@@ -100,7 +100,7 @@ export const generateUniqueAddress = () => {
  */
 export const generateUniquePostcode = () => {
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const numbers = '0123456789';
+  const _numbers = '0123456789';
   
   const area = letters.charAt(Math.floor(Math.random() * letters.length)) + 
                letters.charAt(Math.floor(Math.random() * letters.length));

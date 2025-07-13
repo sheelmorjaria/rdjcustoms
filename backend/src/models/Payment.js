@@ -437,7 +437,7 @@ paymentSchema.pre('save', function(next) {
 });
 
 // Post-save middleware for logging
-paymentSchema.post('save', function(doc) {
+paymentSchema.post('save', (doc) => {
   if (doc.isModified('status')) {
     console.log(`Payment ${doc.paymentId} status changed to: ${doc.status}`);
   }

@@ -87,7 +87,7 @@ test.describe('User Management E2E Tests', () => {
   test.describe('User Management Interface', () => {
     test('should display user management dashboard', async ({ 
       page, 
-      api, 
+      api: _api, 
       testData, 
       mockData 
     }) => {
@@ -145,7 +145,7 @@ test.describe('User Management E2E Tests', () => {
 
     test('should allow user search functionality', async ({ 
       page, 
-      api, 
+      api: _api, 
       testData, 
       mockData 
     }) => {
@@ -243,7 +243,7 @@ test.describe('User Management E2E Tests', () => {
   test.describe('User Status Management', () => {
     test('should allow updating user status from active to inactive', async ({ 
       page, 
-      api, 
+      api: _api, 
       testData, 
       mockData 
     }) => {
@@ -497,7 +497,7 @@ test.describe('User Management E2E Tests', () => {
     test('should prevent non-admin access to user management', async ({ 
       page, 
       api, 
-      testData 
+      testData: _testData 
     }) => {
       // Try to access user management without authentication
       await page.goto('/admin/users');
@@ -566,7 +566,7 @@ test.describe('User Management E2E Tests', () => {
         users.push({
           _id: `user-${i}`,
           email: `user${i}@example.com`,
-          firstName: `User`,
+          firstName: 'User',
           lastName: `${i}`,
           role: 'customer',
           isActive: i % 2 === 0, // Alternate active/inactive

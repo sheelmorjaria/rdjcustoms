@@ -41,6 +41,7 @@ import MoneroPaymentPage from './pages/MoneroPaymentPage';
 import ContactUsPage from './pages/ContactUsPage';
 import WishlistPage from './pages/WishlistPage';
 import CustomerReferralDashboardPage from './pages/CustomerReferralDashboardPage';
+import OrderTrackingDetailPage from './pages/OrderTrackingDetailPage';
 import DebugPage from './pages/DebugPage';
 import SearchBar from './components/SearchBar';
 import CartIcon from './components/CartIcon';
@@ -324,6 +325,9 @@ export const AppRoutes = () => {
           
           {/* Order details page */}
           <Route path="/orders/:orderId" element={<OrderDetailsPage />} />
+          
+          {/* Order tracking page */}
+          <Route path="/orders/:orderId/track" element={<OrderTrackingDetailPage />} />
           
           {/* Return history page */}
           <Route path="/my-account/returns" element={<ReturnHistoryPage />} />

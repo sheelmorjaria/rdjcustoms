@@ -69,7 +69,7 @@ describe('Authentication Security Tests', () => {
     });
 
     it('should hash passwords with bcrypt', async () => {
-      const response = await request(app)
+      const _response = await request(app)
         .post('/api/auth/register')
         .send({
           name: 'Test User',
@@ -292,10 +292,10 @@ describe('Authentication Security Tests', () => {
   describe('Input Validation Security', () => {
     it('should prevent SQL injection in login', async () => {
       const sqlInjectionAttempts = [
-        { email: "admin'--", password: 'password' },
-        { email: "test@example.com' OR '1'='1", password: 'password' },
-        { email: 'test@example.com', password: "' OR '1'='1" },
-        { email: "'; DROP TABLE users; --", password: 'password' },
+        { email: 'admin\'--', password: 'password' },
+        { email: 'test@example.com\' OR \'1\'=\'1', password: 'password' },
+        { email: 'test@example.com', password: '\' OR \'1\'=\'1' },
+        { email: '\'; DROP TABLE users; --', password: 'password' },
       ];
 
       for (const attempt of sqlInjectionAttempts) {

@@ -6,7 +6,7 @@
 import request from 'supertest';
 import app from '../../app.js';
 import { performance } from 'perf_hooks';
-import { measureExecutionTime, measureMemoryUsage } from '../../test/setup.performance.lightweight.js';
+import { measureMemoryUsage } from '../../test/setup.performance.lightweight.js';
 
 // Performance thresholds (in milliseconds) - more aggressive for lightweight tests
 const PERFORMANCE_THRESHOLDS = {
@@ -153,7 +153,7 @@ describe('Lightweight API Performance Tests', () => {
       // Calculate statistics
       const avgDuration = durations.reduce((sum, d) => sum + d, 0) / durations.length;
       const maxDuration = Math.max(...durations);
-      const minDuration = Math.min(...durations);
+      const _minDuration = Math.min(...durations);
       const variance = durations.reduce((sum, d) => sum + Math.pow(d - avgDuration, 2), 0) / durations.length;
       const stdDeviation = Math.sqrt(variance);
       

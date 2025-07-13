@@ -1,7 +1,7 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import winston from 'winston';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+// import { fileURLToPath } from 'url';
+// import { dirname, join } from 'path';
 
 // Store original NODE_ENV
 const originalNodeEnv = process.env.NODE_ENV;

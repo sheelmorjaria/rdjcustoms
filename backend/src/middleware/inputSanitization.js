@@ -18,12 +18,12 @@ const xssOptions = {
     strong: [],
     em: [],
     b: [],
-    i: [],
+    i: []
   },
   stripIgnoreTag: true,
   stripIgnoreTagBody: ['script', 'style'],
   allowCommentTag: false,
-  css: false, // Disable CSS to prevent style-based attacks
+  css: false // Disable CSS to prevent style-based attacks
 };
 
 /**
@@ -141,7 +141,7 @@ export const detectSqlInjection = (input) => {
     /('|"|;|\\)/,
     /(OR|AND)\s+\d+\s*=\s*\d+/i,
     /(\bUNION\b.*\bSELECT\b)/i,
-    /(\bDROP\b.*\bTABLE\b)/i,
+    /(\bDROP\b.*\bTABLE\b)/i
   ];
 
   return sqlPatterns.some(pattern => pattern.test(input));
@@ -302,7 +302,7 @@ export const validateUrl = (field = 'url') => (req, res, next) => {
     require_valid_protocol: true,
     allow_underscores: false,
     allow_trailing_dot: false,
-    allow_protocol_relative_urls: false,
+    allow_protocol_relative_urls: false
   })) {
     return res.status(400).json({
       error: 'Validation failed',

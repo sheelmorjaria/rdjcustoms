@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import MoneroPayment from '../MoneroPayment';
-import { testPatterns, actAsync, advanceTimersAsync, renderWithProviders } from '../../../test/react-test-utils';
+import { testPatterns, actAsync } from '../../../test/react-test-utils';
 
 // Mock QRCode library
 vi.mock('qrcode', () => ({
@@ -129,7 +129,7 @@ describe('MoneroPayment Component', () => {
       navigator.clipboard.writeText = mockWriteText;
       
       // Mock console.error to catch any errors
-      const mockConsoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const _mockConsoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
       
       const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
 

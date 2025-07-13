@@ -50,7 +50,7 @@ beforeAll(async () => {
     await mongoose.connect(mongoUri, {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
+      socketTimeoutMS: 45000
     });
     
     console.log('Integration test database connected successfully');

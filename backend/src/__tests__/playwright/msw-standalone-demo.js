@@ -7,7 +7,7 @@
  * and shows how it would work in a real Playwright E2E test scenario.
  */
 
-import { http, HttpResponse } from 'msw';
+// import { http, HttpResponse } from 'msw';
 
 console.log('🎭 Playwright + MSW Implementation Demonstration\n');
 
@@ -74,10 +74,10 @@ console.log('✅ PayPal Order Creation:');
 console.log(JSON.stringify({
   success: true,
   data: {
-    orderId: "ORD-1734544847123-ABC123",
-    orderNumber: "ORD-1734544847123-ABC123",
-    paypalOrderId: "PAYPAL-1734544847123",
-    approvalUrl: "https://www.sandbox.paypal.com/checkoutnow?token=PAYPAL-1734544847123",
+    orderId: 'ORD-1734544847123-ABC123',
+    orderNumber: 'ORD-1734544847123-ABC123',
+    paypalOrderId: 'PAYPAL-1734544847123',
+    approvalUrl: 'https://www.sandbox.paypal.com/checkoutnow?token=PAYPAL-1734544847123',
     totalAmount: 709.98
   }
 }, null, 2));
@@ -86,12 +86,12 @@ console.log('\n✅ Bitcoin Payment Initialization:');
 console.log(JSON.stringify({
   success: true,
   data: {
-    orderId: "ORD-1734544847123-ABC123",
-    bitcoinAddress: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+    orderId: 'ORD-1734544847123-ABC123',
+    bitcoinAddress: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
     btcAmount: 0.017749,
     exchangeRate: 0.000025,
-    qrCode: "data:image/png;base64,mock-qr-code-data",
-    expirationTime: "2024-12-19T17:40:47.123Z",
+    qrCode: 'data:image/png;base64,mock-qr-code-data',
+    expirationTime: '2024-12-19T17:40:47.123Z',
     requiredConfirmations: 2,
     orderTotal: 709.98
   }
@@ -101,13 +101,13 @@ console.log('\n✅ Monero Payment Creation:');
 console.log(JSON.stringify({
   success: true,
   data: {
-    orderId: "ORD-1734544847123-ABC123",
-    orderNumber: "ORD-1734544847123-ABC123",
-    moneroAddress: "4AdUndXHHZ6cfufTMvppY6JwXNouMBzSkbLYfpAV5Usx3skxNgYeYTRJ5AmD5H3F",
+    orderId: 'ORD-1734544847123-ABC123',
+    orderNumber: 'ORD-1734544847123-ABC123',
+    moneroAddress: '4AdUndXHHZ6cfufTMvppY6JwXNouMBzSkbLYfpAV5Usx3skxNgYeYTRJ5AmD5H3F',
     xmrAmount: 5.67992,
     exchangeRate: 0.008,
-    paymentUrl: "https://globee.com/payment/globee-1734544847123",
-    expirationTime: "2024-12-19T17:40:47.123Z",
+    paymentUrl: 'https://globee.com/payment/globee-1734544847123',
+    expirationTime: '2024-12-19T17:40:47.123Z',
     requiredConfirmations: 10,
     paymentWindowHours: 24,
     orderTotal: 709.98

@@ -130,7 +130,7 @@ export class PaymentTestHelpers {
   }
 
   // Bitcoin payment flow
-  async initiateBitcoinPayment(orderId) {
+  async initiateBitcoinPayment(_orderId) {
     await this.selectPaymentMethod('bitcoin');
     
     // Click Bitcoin payment button
@@ -152,7 +152,7 @@ export class PaymentTestHelpers {
     return { bitcoinAddress, btcAmount };
   }
 
-  async checkBitcoinPaymentStatus(orderId) {
+  async checkBitcoinPaymentStatus(_orderId) {
     await this.page.click('[data-testid="check-payment-status"]');
     
     // Wait for status update
@@ -165,7 +165,7 @@ export class PaymentTestHelpers {
   }
 
   // Monero payment flow
-  async initiateMoneroPayment(orderId) {
+  async initiateMoneroPayment(_orderId) {
     await this.selectPaymentMethod('monero');
     
     // Click Monero payment button
@@ -313,7 +313,7 @@ export const testUtils = {
   async waitForApiResponse(page, url, timeout = 10000) {
     return page.waitForResponse(response => 
       response.url().includes(url) && response.status() === 200, 
-      { timeout }
+    { timeout }
     );
   },
 

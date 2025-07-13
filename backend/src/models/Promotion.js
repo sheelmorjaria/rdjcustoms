@@ -135,14 +135,14 @@ promotionSchema.methods.calculateDiscount = function(subtotal, shippingCost = 0)
   if (subtotal < this.minimumOrderSubtotal) return 0;
   
   switch (this.type) {
-    case 'percentage':
-      return Math.round(subtotal * (this.value / 100) * 100) / 100;
-    case 'fixed_amount':
-      return Math.min(this.value, subtotal);
-    case 'free_shipping':
-      return shippingCost;
-    default:
-      return 0;
+  case 'percentage':
+    return Math.round(subtotal * (this.value / 100) * 100) / 100;
+  case 'fixed_amount':
+    return Math.min(this.value, subtotal);
+  case 'free_shipping':
+    return shippingCost;
+  default:
+    return 0;
   }
 };
 

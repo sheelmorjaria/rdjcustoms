@@ -162,14 +162,14 @@ describe('Create Admin User Script', () => {
       email: 'admin@test.com',
       password: 'adminPassword123',
       firstName: 'Adán',
-      lastName: "O'Connor-Smith"
+      lastName: 'O\'Connor-Smith'
     };
 
     await createAdminUser(adminData);
 
     const createdUser = await User.findOne({ email: adminData.email });
     expect(createdUser.firstName).toBe('Adán');
-    expect(createdUser.lastName).toBe("O'Connor-Smith");
+    expect(createdUser.lastName).toBe('O\'Connor-Smith');
   });
 
   it('should normalize email to lowercase', async () => {

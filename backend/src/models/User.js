@@ -404,16 +404,16 @@ userSchema.methods.updateReferralStats = function(type, amount = 0) {
   }
   
   switch (type) {
-    case 'new_referral':
-      this.referralStats.totalReferrals += 1;
-      this.referralStats.lastReferralDate = new Date();
-      break;
-    case 'successful_referral':
-      this.referralStats.successfulReferrals += 1;
-      break;
-    case 'reward_earned':
-      this.referralStats.totalRewards += amount;
-      break;
+  case 'new_referral':
+    this.referralStats.totalReferrals += 1;
+    this.referralStats.lastReferralDate = new Date();
+    break;
+  case 'successful_referral':
+    this.referralStats.successfulReferrals += 1;
+    break;
+  case 'reward_earned':
+    this.referralStats.totalRewards += amount;
+    break;
   }
   
   return this;

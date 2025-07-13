@@ -45,11 +45,8 @@ vi.mock('winston-daily-rotate-file');
 // Import logger after mocking
 const logger = mockLogger; // Since createLogger returns mockLogger
 
-// Import the actual logger functions
-let logError, logPaymentEvent, logAuthEvent, logSecurityEvent;
-
 // We need to manually define these functions since the logger module might not export them properly with mocks
-logError = (error, context = {}) => {
+const logError = (error, context = {}) => {
   const errorMessage = error instanceof Error ? error.message : String(error);
   const errorStack = error instanceof Error ? error.stack : undefined;
   
@@ -63,7 +60,7 @@ logError = (error, context = {}) => {
   });
 };
 
-logPaymentEvent = (event, data) => {
+const logPaymentEvent = (event, data) => {
   mockLogger.info({
     message: `Payment event: ${event}`,
     category: 'payment',
@@ -73,7 +70,7 @@ logPaymentEvent = (event, data) => {
   });
 };
 
-logAuthEvent = (event, userId, details = {}) => {
+const logAuthEvent = (event, userId, details = {}) => {
   mockLogger.info({
     message: `Auth event: ${event}`,
     category: 'auth',
@@ -84,7 +81,7 @@ logAuthEvent = (event, userId, details = {}) => {
   });
 };
 
-logSecurityEvent = (event, details = {}) => {
+const logSecurityEvent = (event, details = {}) => {
   mockLogger.warn({
     message: `Security event: ${event}`,
     category: 'security',

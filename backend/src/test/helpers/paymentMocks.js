@@ -212,7 +212,7 @@ export const createMoneroServiceMock = () => {
       };
     }),
 
-    verifyPayment: vi.fn().mockImplementation(async (paymentId) => {
+    verifyPayment: vi.fn().mockImplementation(async (_paymentId) => {
       return {
         verified: true,
         amount: 0.15,
@@ -259,7 +259,7 @@ export const createPaymentServiceMocks = () => {
     },
 
     // Simulate various payment scenarios
-    simulateSuccessfulPayment: (service) => {
+    simulateSuccessfulPayment: (_service) => {
       // Implementation depends on service type
     },
 

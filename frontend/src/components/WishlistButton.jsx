@@ -9,10 +9,10 @@ const WishlistButton = ({
   variant = 'button', // 'button' or 'icon'
   size = 'medium' // 'small', 'medium', 'large'
 }) => {
-  const { user, isAuthenticated } = useAuth();
+  const { user: _user, isAuthenticated } = useAuth();
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [_error, _setError] = useState(null);
 
   // Check if product is in wishlist on component mount
   useEffect(() => {
@@ -24,7 +24,7 @@ const WishlistButton = ({
         setIsInWishlist(result.isInWishlist);
       } catch (err) {
         console.error('Error checking wishlist status:', err);
-        setError('Failed to check wishlist status');
+        _setError('Failed to check wishlist status');
       }
     };
 
@@ -42,7 +42,7 @@ const WishlistButton = ({
     }
 
     setIsLoading(true);
-    setError(null);
+    _setError(null);
 
     try {
       if (isInWishlist) {
@@ -56,7 +56,7 @@ const WishlistButton = ({
       }
     } catch (err) {
       console.error('Error updating wishlist:', err);
-      setError(err.message || 'Failed to update wishlist');
+      _setError(err.message || 'Failed to update wishlist');
     } finally {
       setIsLoading(false);
     }

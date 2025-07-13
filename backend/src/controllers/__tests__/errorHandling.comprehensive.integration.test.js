@@ -1,4 +1,4 @@
-import { vi, describe, it, test, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
+import { vi, describe, it, test as _test, expect, beforeAll, afterAll, beforeEach, afterEach as _afterEach } from 'vitest';
 import request from 'supertest';
 import app from '../../app.js';
 import mongoose from 'mongoose';
@@ -239,7 +239,7 @@ describe('Comprehensive Error Handling Tests', () => {
 
   describe('Authentication and Authorization Error Handling', () => {
     it('should handle expired JWT tokens', async () => {
-      vi.spyOn(require('../../middleware/auth.js'), 'authenticateToken').mockImplementation((req, res, next) => {
+      vi.spyOn(require('../../middleware/auth.js'), 'authenticateToken').mockImplementation((req, res, _next) => {
         res.status(401).json({ success: false, error: 'Token expired' });
       });
 
@@ -268,7 +268,7 @@ describe('Comprehensive Error Handling Tests', () => {
 
     it('should handle insufficient permissions for admin endpoints', async () => {
       // Mock regular user trying to access admin endpoint
-      vi.spyOn(require('../../middleware/auth.js'), 'requireAdmin').mockImplementation((req, res, next) => {
+      vi.spyOn(require('../../middleware/auth.js'), 'requireAdmin').mockImplementation((req, res, _next) => {
         res.status(403).json({ success: false, error: 'Admin access required' });
       });
 
@@ -377,7 +377,7 @@ describe('Comprehensive Error Handling Tests', () => {
   describe('Rate Limiting Error Handling', () => {
     it('should handle too many requests from same IP', async () => {
       // Mock rate limiter
-      vi.spyOn(require('../../middleware/rateLimiter.js'), 'apiLimiter').mockImplementation((req, res, next) => {
+      vi.spyOn(require('../../middleware/rateLimiter.js'), 'apiLimiter').mockImplementation((req, res, _next) => {
         res.status(429).json({ 
           success: false, 
           error: 'Too many requests, please try again later' 
@@ -477,7 +477,7 @@ describe('Comprehensive Error Handling Tests', () => {
 
     it('should handle orders during system maintenance', async () => {
       // Mock system maintenance mode
-      vi.spyOn(require('../../middleware/maintenance.js'), 'checkMaintenance').mockImplementation((req, res, next) => {
+      vi.spyOn(require('../../middleware/maintenance.js'), 'checkMaintenance').mockImplementation((req, res, _next) => {
         res.status(503).json({
           success: false,
           error: 'System is under maintenance. Please try again later.'
@@ -548,7 +548,7 @@ describe('Comprehensive Error Handling Tests', () => {
     });
 
     it('should handle SQL injection attempts in search', async () => {
-      const maliciousQuery = "'; DROP TABLE products; --";
+      const maliciousQuery = '\'; DROP TABLE products; --';
 
       const response = await request(app)
         .get('/api/products/search')

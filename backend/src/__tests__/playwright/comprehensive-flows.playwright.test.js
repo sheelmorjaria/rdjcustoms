@@ -20,9 +20,9 @@ test.describe('Comprehensive E2E User Flows', () => {
   test.describe('Full Customer Journey E2E', () => {
     test('should complete full customer journey from product discovery to order completion', async ({ 
       page, 
-      api, 
+      api: _api, 
       testData, 
-      mockData 
+      mockData: _mockData 
     }) => {
       test.slow(); // Mark as slow due to comprehensive flow
       
@@ -167,7 +167,7 @@ test.describe('Comprehensive E2E User Flows', () => {
 
     test('should handle customer registration and login flow', async ({ 
       page, 
-      api, 
+      api: _api, 
       testData 
     }) => {
       // === Customer Registration ===
@@ -242,7 +242,7 @@ test.describe('Comprehensive E2E User Flows', () => {
   test.describe('Admin Workflow Management', () => {
     test('should complete full admin workflow from login to order processing', async ({ 
       page, 
-      api, 
+      api: _api, 
       testData, 
       mockData 
     }) => {
@@ -402,8 +402,8 @@ test.describe('Comprehensive E2E User Flows', () => {
     ['chromium', 'firefox', 'webkit'].forEach(browserName => {
       test(`should work correctly in ${browserName}`, async ({ 
         page, 
-        api, 
-        testData 
+        api: _api, 
+        testData: _testData 
       }) => {
         // Basic functionality test across browsers
         await page.goto('/');
@@ -438,8 +438,8 @@ test.describe('Comprehensive E2E User Flows', () => {
   test.describe('Performance and Load Testing', () => {
     test('should handle concurrent user sessions', async ({ 
       context, 
-      api, 
-      testData 
+      api: _api, 
+      testData: _testData 
     }) => {
       // Create multiple browser contexts to simulate concurrent users
       const contexts = await Promise.all([
@@ -491,7 +491,7 @@ test.describe('Comprehensive E2E User Flows', () => {
 
     test('should maintain performance under API load', async ({ 
       page, 
-      api 
+      api: _api 
     }) => {
       // Measure API response times under load
       const apiCalls = [];
@@ -565,8 +565,8 @@ test.describe('Comprehensive E2E User Flows', () => {
 
     test('should recover from network disconnection', async ({ 
       page, 
-      api, 
-      testData 
+      api: _api, 
+      testData: _testData 
     }) => {
       // Start normal flow
       await page.goto('/products');

@@ -128,7 +128,7 @@ export const createTestProducts = async (categoryId = null) => {
     })
   ];
 
-  return await Product.create(products);
+  return Product.create(products);
 };
 
 /**

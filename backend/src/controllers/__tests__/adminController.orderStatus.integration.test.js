@@ -1,4 +1,4 @@
-import { describe, it, test, expect, beforeEach, beforeAll, afterAll } from 'vitest';
+import { describe, it as _it, test, expect, beforeEach, beforeAll, afterAll } from 'vitest';
 import mongoose from 'mongoose';
 import request from 'supertest';
 import jwt from 'jsonwebtoken';

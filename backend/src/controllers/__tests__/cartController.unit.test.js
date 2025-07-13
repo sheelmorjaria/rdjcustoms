@@ -60,7 +60,7 @@ import Cart from '../../models/Cart.js';
 import Product from '../../models/Product.js';
 
 describe('Cart Controller - Unit Tests', () => {
-  let req, res, next;
+  let req, res, _next;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -78,7 +78,7 @@ describe('Cart Controller - Unit Tests', () => {
       cookie: vi.fn().mockReturnThis()
     };
     
-    next = vi.fn();
+    _next = vi.fn();
 
     // Setup mongoose mock
     mongoose.Types = {

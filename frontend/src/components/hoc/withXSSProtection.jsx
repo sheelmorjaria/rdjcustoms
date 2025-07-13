@@ -145,12 +145,13 @@ export const useXSSProtection = (value, options = {}) => {
  */
 export const SafeContent = ({ 
   content, 
-  as: Component = 'div', 
+  as = 'div', 
   allowHtml = false,
   maxLength = 10000,
   ...props 
 }) => {
   const sanitized = sanitizeUserInput(content, { allowHtml, maxLength });
+  const Component = as;
 
   if (allowHtml) {
     return (

@@ -120,7 +120,7 @@ describe('Frontend Security Tests', () => {
       ];
 
       invalidPhones.forEach(phone => {
-        const isValid = /^[\+]?[1-9][\d]{0,15}$/.test(phone.replace(/\s+/g, ''));
+        const isValid = /^[+]?[1-9][\d]{0,15}$/.test(phone.replace(/\s+/g, ''));
         expect(isValid).toBe(false);
       });
     });

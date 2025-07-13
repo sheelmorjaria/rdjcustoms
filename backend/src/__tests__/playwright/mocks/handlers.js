@@ -35,10 +35,10 @@ const paymentMethods = {
 };
 
 // Store for test data
-let testOrders = new Map();
-let testUsers = new Map();
-let testProducts = new Map();
-let testCarts = new Map();
+const testOrders = new Map();
+const testUsers = new Map();
+const testProducts = new Map();
+const testCarts = new Map();
 
 // Default test products
 const defaultProducts = [
@@ -606,7 +606,7 @@ export const handlers = [
   }),
 
   // Order endpoints
-  http.get('/api/orders/:orderId', ({ params, request }) => {
+  http.get('/api/orders/:orderId', ({ params, request: _request }) => {
     const { orderId } = params;
     const order = testOrders.get(orderId);
 
@@ -678,7 +678,7 @@ export const handlers = [
 
   // Webhook endpoints
   http.post('/api/webhooks/bitcoin', async ({ request }) => {
-    const body = await request.json();
+    const _body = await request.json();
     
     return HttpResponse.json({
       success: true,
@@ -687,7 +687,7 @@ export const handlers = [
   }),
 
   http.post('/api/webhooks/monero', async ({ request }) => {
-    const body = await request.json();
+    const _body = await request.json();
     
     return HttpResponse.json({
       success: true,

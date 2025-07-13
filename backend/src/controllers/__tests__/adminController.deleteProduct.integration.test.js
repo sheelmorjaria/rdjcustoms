@@ -1,4 +1,4 @@
-import { describe, it, test, expect, beforeEach, beforeAll, afterAll } from 'vitest';
+import { describe, it as _it, test, expect, beforeEach, beforeAll, afterAll } from 'vitest';
 import request from 'supertest';
 import app from '../../../server.js';
 import Product from '../../models/Product.js';

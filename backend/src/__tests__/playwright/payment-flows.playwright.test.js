@@ -20,7 +20,7 @@ test.describe('Payment Flows E2E Tests', () => {
       page, 
       api, 
       testData, 
-      mockData 
+      mockData: _mockData 
     }) => {
       test.slow(); // Mark as slow test due to multiple steps
       
@@ -79,7 +79,7 @@ test.describe('Payment Flows E2E Tests', () => {
 
     test('should handle PayPal payment with validation errors', async ({ 
       page, 
-      api, 
+      api: _api, 
       testData 
     }) => {
       // Step 1: Navigate to checkout

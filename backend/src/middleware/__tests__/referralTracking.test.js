@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach as _afterEach, vi } from 'vitest';
 import {
   referralTrackingMiddleware,
   processReferralAfterRegistration,
@@ -159,6 +159,8 @@ describe('Referral Tracking Middleware Tests', () => {
     beforeEach(async () => {
       const { processReferralRegistration } = await import('../../controllers/referralController.js');
       mockProcessReferralRegistration = processReferralRegistration;
+      // Ensure the mock is resolved and reset
+      mockProcessReferralRegistration.mockResolvedValue({ success: true });
     });
 
     it('should process referral after user registration with cookie', async () => {
@@ -259,7 +261,11 @@ describe('Referral Tracking Middleware Tests', () => {
 
       await processReferralAfterRegistration(req, res, next);
 
-      // Wait for setImmediate
+      // Wait for the async setImmediate callback to complete
+      await new Promise(resolve => setImmediate(resolve));
+      // Wait a bit more for the async operations inside setImmediate
+      await new Promise(resolve => setTimeout(resolve, 50));
+      // Additional wait for any pending promises
       await new Promise(resolve => setImmediate(resolve));
 
       expect(req.session.referralCode).toBeUndefined();

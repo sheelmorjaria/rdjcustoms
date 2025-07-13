@@ -334,7 +334,7 @@ export const processReferralQualification = async (userId, orderId, orderTotal) 
 };
 
 // Generate referral reward
-const generateReferralReward = async (referrerId, referralId, orderTotal) => {
+const generateReferralReward = async (referrerId, referralId, _orderTotal) => {
   try {
     // Reward configuration - this could be moved to a settings collection
     const rewardConfig = {

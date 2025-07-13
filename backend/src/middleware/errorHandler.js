@@ -1,5 +1,5 @@
 // Error handling middleware
-export const errorHandler = (err, req, res, next) => {
+export const errorHandler = (err, req, res, _next) => {
   // Handle null/undefined errors
   if (!err) {
     return res.status(500).json({

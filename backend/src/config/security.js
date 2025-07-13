@@ -7,7 +7,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
 import hpp from 'hpp';
-import { inputSanitization, detectNoSqlInjection, sensitiveOperationLimiter } from '../middleware/inputSanitization.js';
+import { inputSanitization, detectNoSqlInjection, sensitiveOperationLimiter as _sensitiveOperationLimiter } from '../middleware/inputSanitization.js';
 
 /**
  * Security headers configuration using Helmet
@@ -17,20 +17,20 @@ import { inputSanitization, detectNoSqlInjection, sensitiveOperationLimiter } fr
  */
 export const cspConfig = {
   directives: {
-    defaultSrc: ["'self'"],
+    defaultSrc: ['\'self\''],
     styleSrc: [
-      "'self'", 
-      "'unsafe-inline'", // Needed for dynamic styles
+      '\'self\'', 
+      '\'unsafe-inline\'', // Needed for dynamic styles
       'https://fonts.googleapis.com',
       'https://cdn.jsdelivr.net' // For any CDN stylesheets
     ],
     fontSrc: [
-      "'self'", 
+      '\'self\'', 
       'https://fonts.gstatic.com',
       'https://cdn.jsdelivr.net'
     ],
     imgSrc: [
-      "'self'", 
+      '\'self\'', 
       'data:', 
       'https:', // Allow HTTPS images
       'blob:', // For user uploaded images
@@ -38,23 +38,23 @@ export const cspConfig = {
       'https://www.paypalobjects.com'
     ],
     scriptSrc: [
-      "'self'",
-      "'nonce-{{nonce}}'", // Dynamic nonce for inline scripts
+      '\'self\'',
+      '\'nonce-{{nonce}}\'', // Dynamic nonce for inline scripts
       'https://www.paypal.com',
       'https://www.paypalobjects.com',
-      'https://js.paypal.com',
+      'https://js.paypal.com'
       // Add other trusted script sources as needed
     ],
-    objectSrc: ["'none'"],
-    mediaSrc: ["'self'", 'blob:', 'data:'],
+    objectSrc: ['\'none\''],
+    mediaSrc: ['\'self\'', 'blob:', 'data:'],
     frameSrc: [
-      "'none'",
+      '\'none\'',
       'https://www.paypal.com', // PayPal checkout
       'https://www.sandbox.paypal.com'
     ],
-    frameAncestors: ["'none'"], // Prevent clickjacking
+    frameAncestors: ['\'none\''], // Prevent clickjacking
     connectSrc: [
-      "'self'", 
+      '\'self\'', 
       'https://api.paypal.com', 
       'https://api.sandbox.paypal.com',
       'https://api.coingecko.com', // Exchange rates
@@ -63,14 +63,14 @@ export const cspConfig = {
       'wss:', // WebSocket connections
       process.env.NODE_ENV === 'development' ? 'ws://localhost:*' : null
     ].filter(Boolean),
-    baseUri: ["'self'"],
-    formAction: ["'self'"],
-    manifestSrc: ["'self'"],
-    workerSrc: ["'self'", 'blob:'],
-    childSrc: ["'self'"],
+    baseUri: ['\'self\''],
+    formAction: ['\'self\''],
+    manifestSrc: ['\'self\''],
+    workerSrc: ['\'self\'', 'blob:'],
+    childSrc: ['\'self\''],
     upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : null,
     blockAllMixedContent: process.env.NODE_ENV === 'production' ? [] : null,
-    reportUri: '/api/csp-report', // CSP violation reporting
+    reportUri: '/api/csp-report' // CSP violation reporting
   },
   reportOnly: process.env.NODE_ENV === 'development' // Report-only in dev
 };

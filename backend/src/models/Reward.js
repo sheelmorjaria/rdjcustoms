@@ -140,25 +140,25 @@ rewardSchema.methods.calculateDiscount = function(orderTotal) {
   let discount = 0;
   
   switch (this.type) {
-    case 'discount_percent':
-      discount = (orderTotal * this.value) / 100;
-      break;
-    case 'discount_fixed':
-      discount = Math.min(this.value, orderTotal);
-      break;
-    case 'store_credit':
-      discount = Math.min(this.value, orderTotal);
-      break;
-    case 'free_shipping':
-      // This would need to be handled in shipping calculation
-      discount = 0;
-      break;
-    case 'cashback':
-      // Cashback is processed after order completion
-      discount = 0;
-      break;
-    default:
-      discount = 0;
+  case 'discount_percent':
+    discount = (orderTotal * this.value) / 100;
+    break;
+  case 'discount_fixed':
+    discount = Math.min(this.value, orderTotal);
+    break;
+  case 'store_credit':
+    discount = Math.min(this.value, orderTotal);
+    break;
+  case 'free_shipping':
+    // This would need to be handled in shipping calculation
+    discount = 0;
+    break;
+  case 'cashback':
+    // Cashback is processed after order completion
+    discount = 0;
+    break;
+  default:
+    discount = 0;
   }
   
   // Apply maximum redemption value if set
@@ -186,17 +186,17 @@ rewardSchema.methods.redeem = function(orderId, redemptionValue = null) {
 // Instance method to format display value
 rewardSchema.methods.getDisplayValue = function() {
   switch (this.type) {
-    case 'discount_percent':
-      return `${this.value}% off`;
-    case 'discount_fixed':
-    case 'store_credit':
-      return `£${this.value.toFixed(2)} off`;
-    case 'free_shipping':
-      return 'Free shipping';
-    case 'cashback':
-      return `£${this.value.toFixed(2)} cashback`;
-    default:
-      return `£${this.value.toFixed(2)}`;
+  case 'discount_percent':
+    return `${this.value}% off`;
+  case 'discount_fixed':
+  case 'store_credit':
+    return `£${this.value.toFixed(2)} off`;
+  case 'free_shipping':
+    return 'Free shipping';
+  case 'cashback':
+    return `£${this.value.toFixed(2)} cashback`;
+  default:
+    return `£${this.value.toFixed(2)}`;
   }
 };
 

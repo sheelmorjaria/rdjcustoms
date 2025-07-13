@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import request from 'supertest';
 import express from 'express';
 import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import { MongoMemoryServer as _MongoMemoryServer } from 'mongodb-memory-server';
 import paymentRoutes from '../../routes/payment.js';
 import Order from '../../models/Order.js';
 import User from '../../models/User.js';
@@ -11,7 +11,7 @@ import { createValidOrderData, createValidUserData } from '../../test/helpers/te
 // Bitcoin API Integration Tests
 describe('Bitcoin Payment API Integration Tests', () => {
   let app;
-  let mongoServer;
+  let _mongoServer;
   let testOrder;
   let testUser;
 

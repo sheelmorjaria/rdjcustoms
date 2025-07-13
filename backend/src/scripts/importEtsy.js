@@ -53,7 +53,7 @@ class EtsyImporter {
     try {
       await mongoose.connect(dbUri, {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
+        useUnifiedTopology: true
       });
       console.log('✅ Database connected successfully');
     } catch (error) {
@@ -179,7 +179,7 @@ class EtsyImporter {
         length: 10,
         width: 10,
         height: 5
-      },
+      }
     };
   }
 

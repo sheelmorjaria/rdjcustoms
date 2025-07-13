@@ -104,7 +104,7 @@ const connectDB = async () => {
     
     // Retry options
     retryWrites: true,
-    retryReads: true,
+    retryReads: true
   };
   
   let retries = 5;

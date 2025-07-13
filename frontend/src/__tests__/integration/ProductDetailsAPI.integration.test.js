@@ -21,7 +21,7 @@ const mockValidProduct = {
     condition: 'new',
     stockStatus: 'in_stock',
     stockQuantity: 25,
-     [
+    features: [
       { name: 'Display', value: '6.3" OLED, 120Hz' },
       { name: 'Storage', value: '256GB' },
       { name: 'RAM', value: '12GB' },

@@ -81,7 +81,7 @@ describe('PaymentController Unit Tests', () => {
       abortTransaction: vi.fn(),
       endSession: vi.fn(),
       withTransaction: vi.fn().mockImplementation(async (fn) => {
-        return await fn(mockSession);
+        return fn(mockSession);
       }),
       inTransaction: vi.fn().mockReturnValue(false),
       id: 'mock-session-id'

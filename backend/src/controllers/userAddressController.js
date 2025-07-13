@@ -259,7 +259,7 @@ export const deleteAddress = async (req, res) => {
     }
 
     try {
-      const deletedAddress = user.deleteAddress(addressId);
+      const _deletedAddress = user.deleteAddress(addressId);
       await user.save();
 
       // Log the action

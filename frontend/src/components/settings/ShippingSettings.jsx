@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const ShippingSettings = ({ onMessage }) => {
   const [shippingMethods, setShippingMethods] = useState([]);
@@ -43,11 +43,7 @@ const ShippingSettings = ({ onMessage }) => {
     { code: 'AU', name: 'Australia' }
   ];
 
-  useEffect(() => {
-    loadShippingMethods();
-  }, []);
-
-  const loadShippingMethods = async () => {
+  const loadShippingMethods = useCallback(async () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('adminToken');
@@ -73,7 +69,11 @@ const ShippingSettings = ({ onMessage }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [onMessage]);
+
+  useEffect(() => {
+    loadShippingMethods();
+  }, [loadShippingMethods]);
 
   const openModal = (method = null) => {
     if (method) {

@@ -5,12 +5,12 @@ export default {
     'src/**/*.{js,jsx}',
     '!src/**/*.test.{js,jsx}',
     '!src/test/**/*',
-    '!src/scripts/**/*',
+    '!src/scripts/**/*'
   ],
   setupFilesAfterEnv: ['<rootDir>/src/test/setup.js'],
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx}',
-    '<rootDir>/src/**/*.{test,spec}.{js,jsx}',
+    '<rootDir>/src/**/*.{test,spec}.{js,jsx}'
   ],
   testTimeout: 30000,
   maxWorkers: 1, // Single worker for CI stability

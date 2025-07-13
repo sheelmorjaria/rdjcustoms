@@ -202,7 +202,7 @@ describe('API Performance Tests', () => {
       }
 
       const startTime = performance.now();
-      const results = await Promise.all(requests);
+      const _results = await Promise.all(requests);
       const totalTime = performance.now() - startTime;
 
       // Total time should be less than sequential time
@@ -274,7 +274,7 @@ describe('API Performance Tests', () => {
 
       const startTime = performance.now();
       
-      const results = await Product.aggregate([
+      const _results = await Product.aggregate([
         { $match: { price: { $gte: 100, $lte: 500 } } },
         { $group: {
           _id: '$category',
@@ -292,7 +292,7 @@ describe('API Performance Tests', () => {
     it('should handle complex join queries efficiently', async () => {
       const startTime = performance.now();
       
-      const orders = await Order.find()
+      const _orders = await Order.find()
         .populate('user', 'name email')
         .populate('items.product', 'name price')
         .limit(50)
@@ -313,7 +313,7 @@ describe('API Performance Tests', () => {
       const startTime = performance.now();
       
       // Query that should use indexes
-      const products = await Product.find({
+      const _products = await Product.find({
         category: 'electronics',
         price: { $gte: 100, $lte: 1000 },
       }).limit(20);

@@ -1,10 +1,10 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import request from 'supertest';
-import express from 'express';
+import _express from 'express';
 import User from '../../models/User.js';
 import Order from '../../models/Order.js';
 import Product from '../../models/Product.js';
-import jwt from 'jsonwebtoken';
+import _jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import { setupAdminTest } from '../../test/helpers/testConfig.js';
 import { createValidOrderData, createValidUserData, createValidProductData } from '../../test/helpers/testDataFactory.js';
@@ -53,7 +53,7 @@ describe('Admin Controller Integration', () => {
     // Mock mongoose session functions to avoid transaction errors in single MongoDB container
     const mockSession = {
       withTransaction: vi.fn().mockImplementation(async (fn) => {
-        return await fn(mockSession);
+        return fn(mockSession);
       }),
       endSession: vi.fn().mockResolvedValue(undefined),
       startTransaction: vi.fn().mockResolvedValue(undefined),
@@ -78,7 +78,7 @@ describe('Admin Controller Integration', () => {
     mongoose.startSession = vi.fn().mockResolvedValue(mockSession);
     
     // Mock Query.prototype.session to simply return this for chaining
-    mongoose.Query.prototype.session = function(session) {
+    mongoose.Query.prototype.session = function(_session) {
       return this;
     };
     
@@ -86,7 +86,7 @@ describe('Admin Controller Integration', () => {
     const originalSave = mongoose.Document.prototype.save;
     mongoose.Document.prototype.save = function(options) {
       if (options && options.session) {
-        const { session, ...optionsWithoutSession } = options;
+        const { session: _session, ...optionsWithoutSession } = options;
         return originalSave.call(this, optionsWithoutSession);
       }
       return originalSave.call(this, options);

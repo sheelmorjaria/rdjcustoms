@@ -11,7 +11,7 @@ export class OrderCompletionService {
    * @param {Object} order - The completed order
    * @param {Object} session - Database session for transactions (optional)
    */
-  static async processOrderCompletion(order, session = null) {
+  static async processOrderCompletion(order, _session = null) {
     try {
       const orderId = order._id;
       const userId = order.userId;
@@ -114,7 +114,7 @@ export class OrderCompletionService {
    */
   static getCompletionHandlers() {
     return [
-      this.processReferralForOrder.bind(this),
+      this.processReferralForOrder.bind(this)
       // Add more handlers here as needed
     ];
   }

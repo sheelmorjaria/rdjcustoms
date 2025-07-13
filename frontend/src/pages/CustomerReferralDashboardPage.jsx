@@ -79,7 +79,7 @@ const CustomerReferralDashboardPage = () => {
         setError('Failed to copy link. Please try again.');
         setTimeout(() => setError(''), 3000);
       }
-    } catch (err) {
+    } catch {
       setError('Failed to copy link. Please try again.');
       setTimeout(() => setError(''), 3000);
     }
@@ -108,7 +108,11 @@ const CustomerReferralDashboardPage = () => {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-forest-700"></div>
+          <div 
+            role="status" 
+            aria-label="Loading"
+            className="animate-spin rounded-full h-12 w-12 border-b-2 border-forest-700"
+          ></div>
         </div>
       </div>
     );
@@ -224,6 +228,7 @@ const CustomerReferralDashboardPage = () => {
             
             <div className="flex gap-2">
               <button
+                type="button"
                 onClick={handleCopyLink}
                 disabled={!dashboardData?.referralCode}
                 className="px-6 py-3 bg-forest-700 text-white rounded-lg hover:bg-forest-800 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
@@ -235,6 +240,7 @@ const CustomerReferralDashboardPage = () => {
               </button>
               
               <button
+                type="button"
                 onClick={handleShareLink}
                 disabled={!dashboardData?.referralCode}
                 className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center gap-2"

@@ -124,9 +124,9 @@ export const register = async (req, res) => {
     const token = generateToken(user._id);
 
     // Generate email verification token and send welcome email
-    const emailVerificationToken = user.generateEmailVerificationToken();
+    const _emailVerificationToken = user.generateEmailVerificationToken();
     await user.save();
-    // TODO: await sendWelcomeEmail(user.email, emailVerificationToken);
+    // TODO: await sendWelcomeEmail(user.email, _emailVerificationToken);
 
     // Return success response with token and user data
     res.status(201).json({

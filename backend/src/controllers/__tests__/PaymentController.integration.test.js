@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import mongoose from 'mongoose';
 import { PaymentController } from '../PaymentController.class.js';
-import { createTestUser, createTestProduct, createTestOrder, createTestCart } from '../../test/setup.integration.js';
+import { createTestUser, createTestProduct, createTestOrder, createTestCart as _createTestCart } from '../../test/setup.integration.js';
 
 // Import actual models for integration testing
 import User from '../../models/User.js';
@@ -13,7 +13,7 @@ describe('PaymentController Integration Tests', () => {
   let paymentController;
   let testUser;
   let testProduct;
-  let testCart;
+  let _testCart;
   let req;
   let res;
 

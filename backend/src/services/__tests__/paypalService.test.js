@@ -65,7 +65,7 @@ describe('PayPal Service', () => {
       });
     });
 
-    const mockOrderData = {
+    const _mockOrderData = {
       orderNumber: 'ORD-12345',
       totalAmount: 299.99,
       currency: 'GBP',

@@ -63,7 +63,7 @@ describe('Bitcoin Payment End-to-End Flow', () => {
       condition: 'new',
       isActive: true,
       images: ['test-image.jpg'],
-       [
+      features: [
         { name: 'Payment Methods', value: 'Bitcoin, PayPal' },
         { name: 'Test Product', value: 'Yes' }
       ]

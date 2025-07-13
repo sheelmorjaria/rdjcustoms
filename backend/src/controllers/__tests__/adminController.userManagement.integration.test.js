@@ -1,4 +1,4 @@
-import { vi, describe, it, test, expect, beforeEach, afterEach } from 'vitest';
+import { vi, describe, it, test as _test, expect, beforeEach, afterEach as _afterEach } from 'vitest';
 import request from 'supertest';
 import jwt from 'jsonwebtoken';
 

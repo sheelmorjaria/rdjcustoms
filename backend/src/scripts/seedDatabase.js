@@ -400,7 +400,7 @@ const seedDatabase = async () => {
       ...product,
       category: categoryMap[product.category],
       // Add stockQuantity if not present
-      stockQuantity: product.stockQuantity || Math.floor(Math.random() * 50) + 5,
+      stockQuantity: product.stockQuantity || Math.floor(Math.random() * 50) + 5
     }));
 
     // Create products

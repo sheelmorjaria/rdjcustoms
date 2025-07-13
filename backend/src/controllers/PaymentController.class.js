@@ -372,7 +372,7 @@ export class PaymentController {
     if (session) {
       query.session(session);
     }
-    return await query.exec();
+    return query.exec();
   }
 
   async _createOrderFromCart(cart, orderData, session = null) {
@@ -397,9 +397,9 @@ export class PaymentController {
     });
 
     if (session) {
-      return await order.save({ session });
+      return order.save({ session });
     }
-    return await order.save();
+    return order.save();
   }
 
   _getErrorStatusCode(error) {

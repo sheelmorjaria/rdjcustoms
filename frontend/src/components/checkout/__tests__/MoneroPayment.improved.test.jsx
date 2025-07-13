@@ -1,8 +1,8 @@
 import React from 'react';
-import { screen, waitFor, userEvent } from '@testing-library/react';
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { waitFor, userEvent } from '@testing-library/react';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 import MoneroPayment from '../MoneroPayment';
-import { testPatterns, actAsync, createComponentTestHelper } from '../../../test/react-test-utils.jsx';
+import { actAsync, createComponentTestHelper } from '../../../test/react-test-utils.jsx';
 
 // Mock QRCode library
 vi.mock('qrcode', () => ({

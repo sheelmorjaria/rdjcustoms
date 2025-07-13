@@ -185,57 +185,57 @@ router.post('/test', (req, res) => {
       req
     );
     
-    let result = {
+    const result = {
       testType,
       timestamp: new Date().toISOString(),
       status: 'completed'
     };
     
     switch (testType) {
-      case 'xss':
-        result.blocked = !payload || typeof payload === 'string' && 
+    case 'xss':
+      result.blocked = !payload || typeof payload === 'string' && 
           !payload.includes('<script>') && 
           !payload.includes('javascript:');
         
-        if (!result.blocked) {
-          securityAuditLogger.logSecurityEvent(
-            SECURITY_EVENT_TYPES.INPUT_VALIDATION.XSS_ATTEMPT,
-            { payload, source: 'security_test' },
-            req
-          );
-        }
-        break;
+      if (!result.blocked) {
+        securityAuditLogger.logSecurityEvent(
+          SECURITY_EVENT_TYPES.INPUT_VALIDATION.XSS_ATTEMPT,
+          { payload, source: 'security_test' },
+          req
+        );
+      }
+      break;
         
-      case 'sql_injection':
-        result.blocked = !payload || typeof payload === 'string' && 
-          !payload.includes("'; DROP TABLE") && 
-          !payload.includes("' OR '1'='1");
+    case 'sql_injection':
+      result.blocked = !payload || typeof payload === 'string' && 
+          !payload.includes('\'; DROP TABLE') && 
+          !payload.includes('\' OR \'1\'=\'1');
         
-        if (!result.blocked) {
-          securityAuditLogger.logSecurityEvent(
-            SECURITY_EVENT_TYPES.INPUT_VALIDATION.SQL_INJECTION,
-            { payload, source: 'security_test' },
-            req
-          );
-        }
-        break;
+      if (!result.blocked) {
+        securityAuditLogger.logSecurityEvent(
+          SECURITY_EVENT_TYPES.INPUT_VALIDATION.SQL_INJECTION,
+          { payload, source: 'security_test' },
+          req
+        );
+      }
+      break;
         
-      case 'path_traversal':
-        result.blocked = !payload || typeof payload === 'string' && 
+    case 'path_traversal':
+      result.blocked = !payload || typeof payload === 'string' && 
           !payload.includes('../') && 
           !payload.includes('..\\\\');
         
-        if (!result.blocked) {
-          securityAuditLogger.logSecurityEvent(
-            SECURITY_EVENT_TYPES.INPUT_VALIDATION.PATH_TRAVERSAL,
-            { payload, source: 'security_test' },
-            req
-          );
-        }
-        break;
+      if (!result.blocked) {
+        securityAuditLogger.logSecurityEvent(
+          SECURITY_EVENT_TYPES.INPUT_VALIDATION.PATH_TRAVERSAL,
+          { payload, source: 'security_test' },
+          req
+        );
+      }
+      break;
         
-      default:
-        result.status = 'invalid_test_type';
+    default:
+      result.status = 'invalid_test_type';
     }
     
     res.json(result);

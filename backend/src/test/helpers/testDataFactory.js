@@ -2,11 +2,11 @@ import mongoose from 'mongoose';
 import { 
   generateUniqueId,
   generateUniqueEmail,
-  generateUniqueSku,
-  generateUniqueSlug,
-  generateUniqueOrderNumber,
-  generateUniquePhoneNumber,
-  generateUniquePrice,
+  generateUniqueSku as _generateUniqueSku,
+  generateUniqueSlug as _generateUniqueSlug,
+  generateUniqueOrderNumber as _generateUniqueOrderNumber,
+  generateUniquePhoneNumber as _generateUniquePhoneNumber,
+  generateUniquePrice as _generateUniquePrice,
   generateUniqueObjectId,
   generateUniqueFieldsFor
 } from './uniqueFieldGenerator.js';

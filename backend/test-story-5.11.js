@@ -9,7 +9,7 @@
 
 import { execSync } from 'child_process';
 import { readFileSync } from 'fs';
-import path from 'path';
+import _path from 'path';
 
 const colors = {
   reset: '\x1b[0m',

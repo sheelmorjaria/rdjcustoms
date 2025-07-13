@@ -1,7 +1,7 @@
-import { describe, it, test, expect, beforeEach, beforeAll, afterAll } from 'vitest';
+import { describe, it, test as _test, expect, beforeEach, beforeAll as _beforeAll, afterAll as _afterAll } from 'vitest';
 import request from 'supertest';
-import express from 'express';
-import mongoose from 'mongoose';
+import _express from 'express';
+import _mongoose from 'mongoose';
 import Product from '../../models/Product.js';
 import Category from '../../models/Category.js';
 import { searchProducts } from '../searchController.js';

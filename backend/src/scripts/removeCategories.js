@@ -109,7 +109,7 @@ const removeCategories = async () => {
     const totalProducts = await Product.countDocuments();
     const totalCategories = await Category.countDocuments();
 
-    console.log(`\n📊 Cleanup Summary:`);
+    console.log('\n📊 Cleanup Summary:');
     console.log(`   - Remaining products in deleted categories: ${remainingProducts}`);
     console.log(`   - Remaining deleted categories: ${remainingCategories}`);
     console.log(`   - Total products remaining: ${totalProducts}`);

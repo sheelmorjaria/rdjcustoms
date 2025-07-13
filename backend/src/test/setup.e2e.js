@@ -33,7 +33,7 @@ beforeAll(async () => {
     await mongoose.connect(mongoUri, {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 10000,
-      socketTimeoutMS: 45000,
+      socketTimeoutMS: 45000
     });
     
     console.log('E2E test database connected successfully');

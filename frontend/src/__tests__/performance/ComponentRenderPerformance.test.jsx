@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { act } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
@@ -244,7 +244,7 @@ describe('Component Render Performance Tests', () => {
       const handleInput = (value) => {
         const startTime = performance.now();
         // Simulate input processing
-        const processed = value.trim().toLowerCase();
+        const _processed = value.trim().toLowerCase();
         const endTime = performance.now();
         return endTime - startTime;
       };

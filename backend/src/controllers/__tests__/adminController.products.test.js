@@ -1,4 +1,4 @@
-import { vi, describe, it, test, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
+import { vi, describe, it, test as _test, expect, beforeAll as _beforeAll, afterAll as _afterAll, beforeEach, afterEach as _afterEach } from 'vitest';
 import request from 'supertest';
 import jwt from 'jsonwebtoken';
 import express from 'express';
@@ -55,7 +55,7 @@ const validToken = jwt.sign(
   process.env.JWT_SECRET || 'your-secret-key'
 );
 
-const customerToken = jwt.sign(
+const _customerToken = jwt.sign(
   { userId: 'customer-id-123', role: 'customer' },
   process.env.JWT_SECRET || 'your-secret-key'
 );
@@ -181,10 +181,10 @@ describe('Admin Products API', () => {
       });
 
       expect(Product.find).toHaveBeenCalledWith({ 
-        status: { $ne: "archived" } 
+        status: { $ne: 'archived' } 
       });
       expect(Product.countDocuments).toHaveBeenCalledWith({ 
-        status: { $ne: "archived" } 
+        status: { $ne: 'archived' } 
       });
     });
 
@@ -213,7 +213,7 @@ describe('Admin Products API', () => {
           { name: { $regex: 'pixel', $options: 'i' } },
           { sku: { $regex: 'pixel', $options: 'i' } }
         ],
-        status: { $ne: "archived" }
+        status: { $ne: 'archived' }
       });
     });
 
@@ -227,7 +227,7 @@ describe('Admin Products API', () => {
 
       expect(Product.find).toHaveBeenCalledWith({
         category: 'smartphone',
-        status: { $ne: "archived" }
+        status: { $ne: 'archived' }
       });
     });
 
@@ -254,7 +254,7 @@ describe('Admin Products API', () => {
 
       expect(Product.find).toHaveBeenCalledWith({
         price: { $gte: 500, $lte: 800 },
-        status: { $ne: "archived" }
+        status: { $ne: 'archived' }
       });
     });
 
@@ -268,7 +268,7 @@ describe('Admin Products API', () => {
 
       expect(Product.find).toHaveBeenCalledWith({
         stockQuantity: { $gt: 0 },
-        status: { $ne: "archived" }
+        status: { $ne: 'archived' }
       });
     });
 
@@ -282,7 +282,7 @@ describe('Admin Products API', () => {
 
       expect(Product.find).toHaveBeenCalledWith({
         stockQuantity: 0,
-        status: { $ne: "archived" }
+        status: { $ne: 'archived' }
       });
     });
 
@@ -296,7 +296,7 @@ describe('Admin Products API', () => {
 
       expect(Product.find).toHaveBeenCalledWith({
         stockQuantity: { $gt: 0, $lte: 10 },
-        status: { $ne: "archived" }
+        status: { $ne: 'archived' }
       });
     });
 

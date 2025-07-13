@@ -1,4 +1,4 @@
-import { describe, it, test, expect, beforeEach } from 'vitest';
+import { describe, it, test as _test, expect, beforeEach } from 'vitest';
 import request from 'supertest';
 import mongoose from 'mongoose';
 import app from '../../../server.js';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const PaymentSettings = ({ onMessage }) => {
   const [paymentGateways, setPaymentGateways] = useState([]);
@@ -86,11 +86,7 @@ const PaymentSettings = ({ onMessage }) => {
     { code: 'AU', name: 'Australia' }
   ];
 
-  useEffect(() => {
-    loadPaymentGateways();
-  }, []);
-
-  const loadPaymentGateways = async () => {
+  const loadPaymentGateways = useCallback(async () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('adminToken');
@@ -116,7 +112,11 @@ const PaymentSettings = ({ onMessage }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [onMessage]);
+
+  useEffect(() => {
+    loadPaymentGateways();
+  }, [loadPaymentGateways]);
 
   const toggleGateway = async (gatewayId, enabled) => {
     try {

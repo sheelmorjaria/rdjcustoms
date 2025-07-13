@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FiSave, FiX, FiMapPin } from 'react-icons/fi';
@@ -43,7 +43,7 @@ const AddressFormPage = () => {
     } else {
       setLoading(false);
     }
-  }, [addressId]);
+  }, [addressId, isEditMode, fetchAddress]);
 
   useEffect(() => {
     // Update available states when country changes
@@ -54,9 +54,9 @@ const AddressFormPage = () => {
     if (states.length > 0 && !states.includes(formData.stateProvince)) {
       setFormData(prev => ({ ...prev, stateProvince: '' }));
     }
-  }, [formData.country]);
+  }, [formData.country, formData.stateProvince]);
 
-  const fetchAddress = async () => {
+  const fetchAddress = useCallback(async () => {
     try {
       const response = await getAddressById(addressId);
       setFormData({
@@ -79,7 +79,7 @@ const AddressFormPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [addressId, navigate]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -112,7 +112,7 @@ const AddressFormPage = () => {
 
     if (!formData.city.trim()) {
       newErrors.city = 'City is required';
-    } else if (!/^[a-zA-Z\s\-'\.]+$/.test(formData.city.trim())) {
+    } else if (!/^[a-zA-Z\s\-'.]+$/.test(formData.city.trim())) {
       newErrors.city = 'City contains invalid characters';
     }
 
@@ -131,7 +131,7 @@ const AddressFormPage = () => {
     }
 
     // Optional field validation
-    if (formData.phoneNumber && !/^[\+]?[1-9][\d\s\-\(\)]{0,20}$/.test(formData.phoneNumber.trim())) {
+    if (formData.phoneNumber && !/^[+]?[1-9][\d\s\-()]{0,20}$/.test(formData.phoneNumber.trim())) {
       newErrors.phoneNumber = 'Invalid phone number format';
     }
 

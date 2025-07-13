@@ -28,7 +28,7 @@ beforeAll(async () => {
     await mongoose.connect(mongoUri, {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
+      socketTimeoutMS: 45000
     });
     
     console.log('Security test database connected successfully');

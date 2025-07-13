@@ -2,6 +2,7 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { vi } from 'vitest';
 import AdminReportsPage from '../AdminReportsPage';
+import * as adminService from '../../services/adminService';
 
 // Mock the adminService
 vi.mock('../../services/adminService', () => ({

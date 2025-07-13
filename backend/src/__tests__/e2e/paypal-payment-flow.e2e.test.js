@@ -70,7 +70,7 @@ describe('PayPal Payment Flow E2E Tests', () => {
       condition: 'new',
       isActive: true,
       images: ['pixel-7-pro.jpg'],
-       [
+      features: [
         { name: 'Operating System', value: 'RDJCustoms' },
         { name: 'Storage', value: '256GB' },
         { name: 'RAM', value: '12GB' },
@@ -89,7 +89,7 @@ describe('PayPal Payment Flow E2E Tests', () => {
       stockQuantity: 100,
       condition: 'new',
       isActive: true,
-       [
+      specifications: [
         { name: 'Service Type', value: 'Privacy App Installation' },
         { name: 'Duration', value: '1-2 hours' },
         { name: 'Apps Included', value: 'Signal, Tor Browser, Orbot' }

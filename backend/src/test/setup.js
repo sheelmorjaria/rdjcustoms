@@ -37,7 +37,7 @@ beforeAll(async () => {
       // Disable sessions since MongoMemoryServer doesn't fully support them
       maxPoolSize: 1,
       serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
+      socketTimeoutMS: 45000
     });
     
     // Wait for connection to be ready
@@ -222,7 +222,7 @@ process.on('uncaughtException', async (error) => {
   process.exit(1);
 });
 
-process.on('unhandledRejection', async (reason, promise) => {
+process.on('unhandledRejection', async (reason, _promise) => {
   console.error('Unhandled rejection in tests:', reason);
   await cleanup();
   process.exit(1);

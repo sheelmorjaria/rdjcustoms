@@ -1,8 +1,8 @@
-import { vi, describe, it, test, expect, beforeEach, afterEach } from 'vitest';
+import { vi as _vi, describe, it, test as _test, expect, beforeEach, afterEach } from 'vitest';
 import request from 'supertest';
-import express from 'express';
+import _express from 'express';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
+import _jwt from 'jsonwebtoken';
 import { 
   getCart, 
   addToCart, 

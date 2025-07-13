@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, beforeAll, afterAll } from 'vitest';
-import mongoose from 'mongoose';
+import _mongoose from 'mongoose';
 import PaymentGateway from '../PaymentGateway.js';
 import { connectTestDatabase, disconnectTestDatabase, clearTestDatabase } from '../../test/setup.js';
 

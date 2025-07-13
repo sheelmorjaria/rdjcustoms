@@ -1,4 +1,4 @@
-import { vi, describe, it, test, expect, beforeEach, afterEach } from 'vitest';
+import { vi, describe, it, test as _test, expect, beforeEach, afterEach } from 'vitest';
 
 // Set up the mock before any imports (factory function must be self-contained)
 vi.mock('../../models/Order.js', () => ({

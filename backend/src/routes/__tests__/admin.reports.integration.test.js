@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import request from 'supertest';
-import express from 'express';
+import _express from 'express';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
+import _jwt from 'jsonwebtoken';
 import adminRoutes from '../admin.js';
 import User from '../../models/User.js';
 import Order from '../../models/Order.js';

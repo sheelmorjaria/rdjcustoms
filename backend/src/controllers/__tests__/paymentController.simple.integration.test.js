@@ -1,10 +1,10 @@
-import { vi } from 'vitest';
-import request from 'supertest';
-import app from '../../app.js';
+import { vi as _vi } from 'vitest';
+import _request from 'supertest';
+import _app from '../../app.js';
 import Order from '../../models/Order.js';
 import Payment from '../../models/Payment.js';
 import User from '../../models/User.js';
-import mongoose from 'mongoose';
+import _mongoose from 'mongoose';
 import { createValidOrderData } from '../../test/helpers/testDataFactory.js';
 
 describe('Payment Controller Simple Integration Tests', () => {

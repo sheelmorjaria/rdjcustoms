@@ -3,8 +3,8 @@ import { test, expect } from './fixtures/test-fixtures.js';
 test.describe('API Mocking Demonstration', () => {
   test('should demonstrate MSW API mocking capabilities', async ({ 
     api, 
-    testData, 
-    mockData 
+    testData: _testData, 
+    mockData: _mockData 
   }) => {
     // Test 1: Authentication API
     const adminAuth = await api.loginAsAdmin();
@@ -20,7 +20,7 @@ test.describe('API Mocking Demonstration', () => {
 
   test('should demonstrate product API functionality', async ({ 
     api, 
-    mockData 
+    mockData: _mockData 
   }) => {
     // Test 2: Products API
     const productsResult = await api.getProducts();
@@ -55,7 +55,7 @@ test.describe('API Mocking Demonstration', () => {
 
   test('should demonstrate payment API functionality', async ({ 
     api, 
-    testData 
+    testData: _testData 
   }) => {
     // Test 4: Payment Methods API
     const methodsResult = await api.getPaymentMethods();
@@ -103,7 +103,7 @@ test.describe('API Mocking Demonstration', () => {
   test('should demonstrate Bitcoin payment flow', async ({ 
     api, 
     testData,
-    mockData 
+    _mockData 
   }) => {
     // Test 6: Bitcoin Payment Flow
     
@@ -161,7 +161,7 @@ test.describe('API Mocking Demonstration', () => {
 
   test('should demonstrate admin user management', async ({ 
     api, 
-    testData,
+    _testData,
     mockData 
   }) => {
     // Test 8: Admin User Management
@@ -260,7 +260,7 @@ test.describe('API Mocking Demonstration', () => {
   test('should demonstrate comprehensive API coverage', async ({ 
     api,
     testData,
-    mockData 
+    _mockData 
   }) => {
     // Test 11: Comprehensive Coverage
     

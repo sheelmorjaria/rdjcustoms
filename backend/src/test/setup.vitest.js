@@ -1,5 +1,5 @@
-import { vi, beforeEach, afterEach } from 'vitest';
-import mongoose from 'mongoose';
+import { vi } from 'vitest';
+// import mongoose from 'mongoose';
 
 // Setup global test utilities
 global.vi = vi;
@@ -77,7 +77,7 @@ vi.mock('mongoose', async () => {
         const str = id.toString();
         return /^[0-9a-fA-F]{24}$/.test(str);
       }),
-      model: vi.fn().mockImplementation((name, schema) => {
+      model: vi.fn().mockImplementation((name, _schema) => {
         const Model = function(data) {
           Object.assign(this, data);
           this._id = data._id || Array(24).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join('');
@@ -342,6 +342,72 @@ vi.mock('mongoose', async () => {
           this.comparePassword = vi.fn().mockResolvedValue(true);
           this.generatePasswordResetToken = vi.fn().mockReturnValue('reset-token-123');
           this.generateEmailVerificationToken = vi.fn().mockReturnValue('verify-token-123');
+          this.getFullName = vi.fn().mockImplementation(() => {
+            return `${this.firstName || ''} ${this.lastName || ''}`.trim();
+          });
+          
+          // Address-related methods
+          this.addresses = this.addresses || [];
+          this.getActiveAddresses = vi.fn().mockImplementation(() => {
+            return this.addresses.filter(address => !address.isDeleted);
+          });
+          this.getAddressById = vi.fn().mockImplementation((addressId) => {
+            return this.addresses.find(addr => addr._id.toString() === addressId.toString());
+          });
+          this.addAddress = vi.fn().mockImplementation((addressData) => {
+            const address = {
+              _id: new mockSchema.Types.ObjectId(),
+              ...addressData,
+              isDeleted: false,
+              createdAt: new Date(),
+              updatedAt: new Date()
+            };
+            // Mock subdocument methods
+            address.id = address._id;
+            this.addresses.push(address);
+            return address;
+          });
+          this.updateAddress = vi.fn().mockImplementation((addressId, addressData) => {
+            const address = this.addresses.find(addr => addr._id.toString() === addressId.toString());
+            if (!address || address.isDeleted) {
+              throw new Error('Address not found');
+            }
+            Object.assign(address, addressData);
+            address.updatedAt = new Date();
+            return address;
+          });
+          this.deleteAddress = vi.fn().mockImplementation((addressId) => {
+            const address = this.addresses.find(addr => addr._id.toString() === addressId.toString());
+            if (!address || address.isDeleted) {
+              throw new Error('Address not found');
+            }
+            address.isDeleted = true;
+            address.deletedAt = new Date();
+            
+            // Clear default if this was a default address
+            if (this.defaultShippingAddressId && this.defaultShippingAddressId.toString() === addressId.toString()) {
+              this.defaultShippingAddressId = null;
+            }
+            if (this.defaultBillingAddressId && this.defaultBillingAddressId.toString() === addressId.toString()) {
+              this.defaultBillingAddressId = null;
+            }
+            return address;
+          });
+          this.setDefaultAddress = vi.fn().mockImplementation((addressId, type) => {
+            const address = this.addresses.find(addr => addr._id.toString() === addressId.toString());
+            if (!address || address.isDeleted) {
+              throw new Error('Address not found');
+            }
+            
+            if (type === 'shipping') {
+              this.defaultShippingAddressId = addressId;
+            } else if (type === 'billing') {
+              this.defaultBillingAddressId = addressId;
+            } else {
+              throw new Error('Invalid address type');
+            }
+            return this;
+          });
           
           // Order model specific methods
           this.getStatusDisplay = vi.fn().mockImplementation(() => {
@@ -492,11 +558,90 @@ vi.mock('mongoose', async () => {
             itemCount: this.items ? this.items.length : 0,
             lastModified: this.lastModified
           }));
+          
+          // Referral model specific methods
+          this.recordClick = vi.fn().mockImplementation(async (ipAddress, userAgent, source) => {
+            this.clickCount = (this.clickCount || 0) + 1;
+            this.lastClickDate = new Date();
+            this.metadata = this.metadata || {};
+            this.metadata.ipAddress = ipAddress;
+            this.metadata.userAgent = userAgent;
+            this.metadata.source = source;
+            await this.save();
+            return this;
+          });
+          this.markAsRegistered = vi.fn().mockImplementation(async (userId, email) => {
+            this.referredUserId = userId;
+            this.referredEmail = email;
+            this.status = 'registered';
+            this.registrationDate = new Date();
+            await this.save();
+            return this;
+          });
+          this.markAsQualified = vi.fn().mockImplementation(async (orderId) => {
+            this.qualifyingOrderId = orderId;
+            this.status = 'qualified';
+            this.qualificationDate = new Date();
+            await this.save();
+            return this;
+          });
+          this.markAsRewarded = vi.fn().mockImplementation(async () => {
+            this.status = 'rewarded';
+            this.rewardDate = new Date();
+            await this.save();
+            return this;
+          });
+          
+          // User model referral methods
+          this.generateReferralCode = vi.fn().mockImplementation(() => {
+            this.referralCode = `REF${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
+            return this.referralCode;
+          });
+          this.updateReferralStats = vi.fn().mockImplementation((action, value = 0) => {
+            this.referralStats = this.referralStats || {
+              totalReferrals: 0,
+              successfulReferrals: 0,
+              totalRewards: 0
+            };
+            
+            switch (action) {
+              case 'new_referral':
+                this.referralStats.totalReferrals += 1;
+                break;
+              case 'successful_referral':
+                this.referralStats.successfulReferrals += 1;
+                break;
+              case 'reward_earned':
+                this.referralStats.totalRewards += value;
+                break;
+            }
+            return this;
+          });
+          this.getReferralUrl = vi.fn().mockImplementation(() => {
+            return `https://rdjcustoms.com/ref/${this.referralCode}`;
+          });
+          
+          // Reward model specific methods
+          this.getDisplayValue = vi.fn().mockImplementation(() => {
+            if (this.type === 'discount_percent') {
+              return `${this.value}%`;
+            } else if (this.type === 'discount_fixed') {
+              return `£${this.value}`;
+            }
+            return this.value?.toString() || '0';
+          });
+          this.isExpired = vi.fn().mockImplementation(() => {
+            if (!this.expiryDate) return false;
+            return new Date() > new Date(this.expiryDate);
+          });
+          this.isRedeemable = vi.fn().mockImplementation(() => {
+            return this.status === 'active' && !this.isExpired();
+          });
         };
         
         // Create comprehensive query chain mock
         const createQueryChain = (resolveValue = null) => {
-          let populateFields = [];
+          const populateFields = [];
           let sortOptions = {};
           let limitValue = null;
           let skipValue = 0;
@@ -559,7 +704,7 @@ vi.mock('mongoose', async () => {
               if (populateFields.length > 0) {
                 result = result.map(item => {
                   const populated = { ...item };
-                  for (const { field, select } of populateFields) {
+                  for (const { field, select: _select } of populateFields) {
                     if (populated[field]) {
                       // Look up the referenced document
                       const refId = populated[field];
@@ -579,7 +724,7 @@ vi.mock('mongoose', async () => {
               }
             } else if (result && populateFields.length > 0) {
               // Perform population on single result
-              for (const { field, select } of populateFields) {
+              for (const { field, select: _select } of populateFields) {
                 if (result[field]) {
                   // Look up the referenced document
                   const refId = result[field];
@@ -830,7 +975,7 @@ vi.mock('mongoose', async () => {
         Model.updateOne = vi.fn().mockReturnValue(createQueryChain({ modifiedCount: 1 }));
         Model.updateMany = vi.fn().mockReturnValue(createQueryChain({ modifiedCount: 0 }));
         Model.create = vi.fn().mockImplementation(async (data) => {
-          const modelName = name || 'Unknown';
+          const _modelName = name || 'Unknown';
           
           // Handle array of documents
           if (Array.isArray(data)) {
@@ -878,6 +1023,36 @@ vi.mock('mongoose', async () => {
         Model.updateMany = vi.fn().mockResolvedValue({ modifiedCount: 0 });
         Model.insertMany = vi.fn().mockResolvedValue([]);
         
+        // Add Referral model specific static methods
+        if (name === 'Referral') {
+          Model.findActiveByUser = vi.fn().mockImplementation((userId) => {
+            const modelName = name || 'Unknown';
+            const stored = testDataStore.get(modelName) || [];
+            const userReferrals = stored.filter(item => 
+              item.referrerUserId && (
+                item.referrerUserId === userId || 
+                item.referrerUserId.toString() === userId.toString()
+              )
+            );
+            return createQueryChain(userReferrals.map(data => new Model(data)));
+          });
+        }
+
+        // Add Reward model specific static methods
+        if (name === 'Reward') {
+          Model.findActiveByUser = vi.fn().mockImplementation((userId) => {
+            const modelName = name || 'Unknown';
+            const stored = testDataStore.get(modelName) || [];
+            const userRewards = stored.filter(item => 
+              item.userId && (
+                item.userId === userId || 
+                item.userId.toString() === userId.toString()
+              )
+            );
+            return createQueryChain(userRewards.map(data => new Model(data)));
+          });
+        }
+
         // Add custom static methods for specific models
         Model.findByEmail = vi.fn().mockImplementation((email) => {
           const modelName = name || 'Unknown';
@@ -1208,7 +1383,7 @@ vi.mock('mongoose', async () => {
             abortTransaction: vi.fn(),
             endSession: vi.fn()
           };
-          return await fn(mockSession);
+          return fn(mockSession);
         })
       }),
       Types: {

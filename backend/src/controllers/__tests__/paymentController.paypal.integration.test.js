@@ -1,8 +1,8 @@
 import '../../test/setup.js';
 import request from 'supertest';
-import express from 'express';
+import _express from 'express';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
+import _jwt from 'jsonwebtoken';
 import paymentRoutes from '../../routes/payment.js';
 import User from '../../models/User.js';
 import Cart from '../../models/Cart.js';

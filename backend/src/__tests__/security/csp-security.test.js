@@ -54,11 +54,11 @@ describe('Content Security Policy Security Tests', () => {
                        response.headers['content-security-policy-report-only'];
       
       // Check for essential security directives
-      expect(cspHeader).toContain("default-src 'self'");
-      expect(cspHeader).toContain("object-src 'none'");
-      expect(cspHeader).toContain("frame-ancestors 'none'");
-      expect(cspHeader).toContain("base-uri 'self'");
-      expect(cspHeader).toContain("form-action 'self'");
+      expect(cspHeader).toContain('default-src \'self\'');
+      expect(cspHeader).toContain('object-src \'none\'');
+      expect(cspHeader).toContain('frame-ancestors \'none\'');
+      expect(cspHeader).toContain('base-uri \'self\'');
+      expect(cspHeader).toContain('form-action \'self\'');
     });
 
     test('should have report-uri directive', async () => {
@@ -83,9 +83,9 @@ describe('Content Security Policy Security Tests', () => {
       expect(cspHeader).toBeDefined();
       
       // Admin CSP should be more restrictive
-      expect(cspHeader).toContain("default-src 'self'");
-      expect(cspHeader).toContain("frame-src 'none'");
-      expect(cspHeader).toContain("object-src 'none'");
+      expect(cspHeader).toContain('default-src \'self\'');
+      expect(cspHeader).toContain('frame-src \'none\'');
+      expect(cspHeader).toContain('object-src \'none\'');
     });
 
     test('payment routes should allow PayPal domains', async () => {
@@ -141,7 +141,7 @@ describe('Content Security Policy Security Tests', () => {
         'referrer': '',
         'violated-directive': 'script-src',
         'effective-directive': 'script-src',
-        'original-policy': "default-src 'self'; script-src 'self'",
+        'original-policy': 'default-src \'self\'; script-src \'self\'',
         'disposition': 'enforce',
         'blocked-uri': 'https://evil.com/script.js',
         'line-number': 1,
@@ -294,12 +294,12 @@ describe('Content Security Policy Security Tests', () => {
                        response.headers['content-security-policy-report-only'];
       
       // Should not allow unsafe-eval or unsafe-inline for scripts
-      expect(cspHeader).not.toContain("'unsafe-eval'");
+      expect(cspHeader).not.toContain('\'unsafe-eval\'');
       
       // script-src should not contain unsafe-inline
       const scriptSrcMatch = cspHeader.match(/script-src[^;]*/);
       if (scriptSrcMatch) {
-        expect(scriptSrcMatch[0]).not.toContain("'unsafe-inline'");
+        expect(scriptSrcMatch[0]).not.toContain('\'unsafe-inline\'');
       }
     });
 
@@ -311,8 +311,8 @@ describe('Content Security Policy Security Tests', () => {
       const cspHeader = response.headers['content-security-policy'] || 
                        response.headers['content-security-policy-report-only'];
       
-      expect(cspHeader).toContain("object-src 'none'");
-      expect(cspHeader).toContain("base-uri 'self'");
+      expect(cspHeader).toContain('object-src \'none\'');
+      expect(cspHeader).toContain('base-uri \'self\'');
     });
 
     test('should prevent clickjacking with frame-ancestors', async () => {
@@ -323,7 +323,7 @@ describe('Content Security Policy Security Tests', () => {
       const cspHeader = response.headers['content-security-policy'] || 
                        response.headers['content-security-policy-report-only'];
       
-      expect(cspHeader).toContain("frame-ancestors 'none'");
+      expect(cspHeader).toContain('frame-ancestors \'none\'');
     });
   });
 });

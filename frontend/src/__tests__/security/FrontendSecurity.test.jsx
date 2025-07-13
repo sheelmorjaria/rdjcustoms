@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
@@ -111,7 +111,7 @@ const mockDOMPurify = {
 };
 
 // Security test utilities
-const testXSSProtection = (input, expectedSanitized) => {
+const _testXSSProtection = (input) => {
   // Simple XSS protection check without DOMPurify
   const hasScript = input.includes('<script>') || input.includes('onerror=') || input.includes('onload=');
   expect(hasScript).toBe(false);

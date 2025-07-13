@@ -1,4 +1,4 @@
-import { describe, it, test, expect, beforeEach } from 'vitest';
+import { describe, it, test as _test, expect, beforeEach } from 'vitest';
 import request from 'supertest';
 import express from 'express';
 import Product from '../../models/Product.js';
@@ -47,7 +47,7 @@ describe('Product Details Controller', () => {
       condition: 'new',
       stockStatus: 'in_stock',
       stockQuantity: 15,
-       [
+      specifications: [
         { name: 'Color', value: 'Obsidian' },
         { name: 'Storage', value: '256GB' },
         { name: 'RAM', value: '12GB' },
@@ -81,7 +81,7 @@ describe('Product Details Controller', () => {
         condition: 'new',
         stockStatus: 'in_stock',
         stockQuantity: 15,
-         expect.arrayContaining([
+        specifications: expect.arrayContaining([
           expect.objectContaining({ name: 'Color', value: 'Obsidian' }),
           expect.objectContaining({ name: 'Storage', value: '256GB' })
         ]),
@@ -154,7 +154,7 @@ describe('Product Details Controller', () => {
         shortDescription: undefined,
         longDescription: undefined,
         images: [],
-         []
+        specifications: []
       }));
       await minimalProduct.save();
 

@@ -241,12 +241,22 @@ const MyOrdersPage = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <Link
-                          to={`/orders/${order._id}`}
-                          className="text-blue-600 hover:text-blue-900"
-                        >
-                          View Details
-                        </Link>
+                        <div className="flex space-x-4">
+                          <Link
+                            to={`/orders/${order._id}`}
+                            className="text-blue-600 hover:text-blue-900"
+                          >
+                            View Details
+                          </Link>
+                          {(order.status === 'shipped' || order.status === 'out_for_delivery' || order.status === 'delivered') && (
+                            <Link
+                              to={`/orders/${order._id}/track`}
+                              className="text-green-600 hover:text-green-900"
+                            >
+                              Track Order
+                            </Link>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -284,12 +294,22 @@ const MyOrdersPage = () => {
                         {order.itemCount} item{order.itemCount !== 1 ? 's' : ''}
                       </div>
                     </div>
-                    <Link
-                      to={`/orders/${order._id}`}
-                      className="text-blue-600 hover:text-blue-900 text-sm font-medium"
-                    >
-                      View Details
-                    </Link>
+                    <div className="flex flex-col space-y-2">
+                      <Link
+                        to={`/orders/${order._id}`}
+                        className="text-blue-600 hover:text-blue-900 text-sm font-medium"
+                      >
+                        View Details
+                      </Link>
+                      {(order.status === 'shipped' || order.status === 'out_for_delivery' || order.status === 'delivered') && (
+                        <Link
+                          to={`/orders/${order._id}/track`}
+                          className="text-green-600 hover:text-green-900 text-sm font-medium"
+                        >
+                          Track Order
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}

@@ -5,7 +5,7 @@
 
 import request from 'supertest';
 import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
+import _crypto from 'crypto';
 
 /**
  * XSS attack payloads for testing
@@ -19,7 +19,7 @@ export const xssPayloads = [
   '<input onfocus=alert("XSS") autofocus>',
   '<body onload=alert("XSS")>',
   '"><script>alert("XSS")</script>',
-  "'><script>alert('XSS')</script>",
+  '\'><script>alert(\'XSS\')</script>',
   '<script>document.cookie="xss=true"</script>',
   '<meta http-equiv="refresh" content="0;url=javascript:alert(\'XSS\')">',
   '<link rel="stylesheet" href="javascript:alert(\'XSS\')">',
@@ -32,18 +32,18 @@ export const xssPayloads = [
  * SQL injection payloads for testing
  */
 export const sqlInjectionPayloads = [
-  "'; DROP TABLE users; --",
-  "1' OR '1'='1",
-  "admin'--",
-  "1; DELETE FROM users WHERE 1=1; --",
-  "' UNION SELECT * FROM users --",
-  "'; SHUTDOWN; --",
-  "' OR 1=1 --",
-  "'; INSERT INTO users (username, password) VALUES ('hacker', 'password'); --",
-  "' OR 'a'='a",
-  "1' UNION SELECT password FROM users WHERE username='admin'--",
-  "'; UPDATE users SET password='hacked' WHERE username='admin'; --",
-  "' AND (SELECT COUNT(*) FROM users) > 0 --"
+  '\'; DROP TABLE users; --',
+  '1\' OR \'1\'=\'1',
+  'admin\'--',
+  '1; DELETE FROM users WHERE 1=1; --',
+  '\' UNION SELECT * FROM users --',
+  '\'; SHUTDOWN; --',
+  '\' OR 1=1 --',
+  '\'; INSERT INTO users (username, password) VALUES (\'hacker\', \'password\'); --',
+  '\' OR \'a\'=\'a',
+  '1\' UNION SELECT password FROM users WHERE username=\'admin\'--',
+  '\'; UPDATE users SET password=\'hacked\' WHERE username=\'admin\'; --',
+  '\' AND (SELECT COUNT(*) FROM users) > 0 --'
 ];
 
 /**
@@ -438,7 +438,7 @@ export const testSessionSecurity = {
   /**
    * Test session fixation
    */
-  testSessionFixation: async (app, loginEndpoint, protectedEndpoint) => {
+  testSessionFixation: async (app, loginEndpoint, _protectedEndpoint) => {
     // Get initial session
     const initialResponse = await request(app).get('/');
     const initialCookie = initialResponse.headers['set-cookie'];

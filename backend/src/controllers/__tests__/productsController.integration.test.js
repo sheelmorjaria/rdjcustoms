@@ -1,4 +1,4 @@
-import { vi, describe, it, test, expect, beforeAll, beforeEach, afterAll } from 'vitest';
+import { vi, describe, it, test as _test, expect, beforeAll, beforeEach, afterAll } from 'vitest';
 import request from 'supertest';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -11,7 +11,7 @@ import { createValidProductData, createValidCategoryData } from '../../test/help
 describe('Products Controller - Integration Tests', () => {
   let app;
   let testCategory;
-  let testProducts;
+  let _testProducts;
   let mongoServer;
 
   beforeAll(async () => {

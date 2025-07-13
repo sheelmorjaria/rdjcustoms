@@ -132,10 +132,10 @@ export const sanitizePhone = (phone) => {
   let sanitized = removeScriptTags(phone.trim());
   
   // Remove all non-digit characters except + and spaces
-  sanitized = sanitized.replace(/[^\d\+\s\-\(\)]/g, '');
+  sanitized = sanitized.replace(/[^\d+\s\-()]/g, '');
   
   // Basic phone validation (international format)
-  const phoneRegex = /^[\+]?[1-9][\d\s\-\(\)]{7,14}$/;
+  const phoneRegex = /^[+]?[1-9][\d\s\-()]{7,14}$/;
   const isValid = phoneRegex.test(sanitized) && sanitized.length <= 20;
   
   return {
@@ -205,7 +205,7 @@ export const sanitizeUrl = (url) => {
       sanitized: isValid ? url : '',
       error: isValid ? null : 'Invalid or unsafe URL'
     };
-  } catch (error) {
+  } catch {
     return {
       isValid: false,
       sanitized: '',
@@ -232,7 +232,7 @@ export const sanitizeFileName = (fileName) => {
   // Remove dangerous characters
   let sanitized = fileName
     .replace(/[<>:"|?*]/g, '') // Windows reserved characters
-    .replace(/[\/\\]/g, '_')   // Path separators
+    .replace(/[/\\]/g, '_')   // Path separators
     .replace(/\s+/g, '_')      // Multiple spaces
     .trim();
   
@@ -260,7 +260,7 @@ export const sanitizeFileName = (fileName) => {
                   !hasDangerousExtension &&
                   !isReserved &&
                   !sanitized.startsWith('.') &&
-                  !/^[\s\.]+$/.test(sanitized);
+                  !/^[\s.]+$/.test(sanitized);
   
   return {
     isValid,
@@ -306,7 +306,7 @@ export const sanitizeFormData = (formData, fieldConfig = {}) => {
     const config = fieldConfig[field] || {};
     
     switch (config.type) {
-      case 'email':
+      case 'email': {
         const emailResult = sanitizeEmail(value);
         sanitized[field] = emailResult.sanitized;
         if (!emailResult.isValid) {
@@ -314,8 +314,9 @@ export const sanitizeFormData = (formData, fieldConfig = {}) => {
           isValid = false;
         }
         break;
+      }
         
-      case 'phone':
+      case 'phone': {
         const phoneResult = sanitizePhone(value);
         sanitized[field] = phoneResult.sanitized;
         if (!phoneResult.isValid) {
@@ -323,8 +324,9 @@ export const sanitizeFormData = (formData, fieldConfig = {}) => {
           isValid = false;
         }
         break;
+      }
         
-      case 'url':
+      case 'url': {
         const urlResult = sanitizeUrl(value);
         sanitized[field] = urlResult.sanitized;
         if (!urlResult.isValid) {
@@ -332,6 +334,7 @@ export const sanitizeFormData = (formData, fieldConfig = {}) => {
           isValid = false;
         }
         break;
+      }
         
       case 'search':
         sanitized[field] = sanitizeSearchQuery(value);

@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 export function setupAdvancedSessionMocking() {
   // Store original methods to restore later
   const originalStartSession = mongoose.startSession;
-  const originalConnection = mongoose.connection;
+  const _originalConnection = mongoose.connection;
   
   // Create a more comprehensive mock session
   const createMockSession = () => {
@@ -79,7 +79,7 @@ export function setupAdvancedSessionMocking() {
         } catch (error) {
           return null;
         }
-      },
+      }
     };
     
     return session;
@@ -105,14 +105,14 @@ export function setupAdvancedSessionMocking() {
   }
 
   // Store original mongoose.connect for potential restoration
-  const originalConnect = mongoose.connect;
+  const _originalConnect = mongoose.connect;
 
   // Store original methods
   const originalQueryExec = mongoose.Query.prototype.exec;
   const originalDocumentSave = mongoose.Document.prototype.save;
 
   // Enhanced Query session handling
-  mongoose.Query.prototype.session = function(session) {
+  mongoose.Query.prototype.session = function(_session) {
     // Instead of storing the session, just return this for chaining
     // The actual session will be ignored during execution
     return this;
@@ -129,7 +129,7 @@ export function setupAdvancedSessionMocking() {
     }
 
     // Remove session from options to avoid conflicts
-    const { session, ...cleanOptions } = options;
+    const { session: _session, ...cleanOptions } = options;
     
     // Call original save without session
     return originalDocumentSave.call(
@@ -152,12 +152,12 @@ export function setupAdvancedSessionMocking() {
         const originalMethod = Model[methodName];
         Model[methodName] = function(...args) {
           // Process all arguments to remove session references
-          const cleanArgs = args.map((arg, index) => {
+          const cleanArgs = args.map((arg, _index) => {
             // Handle options object (usually the last argument)
             if (arg && typeof arg === 'object' && !Array.isArray(arg)) {
               // Check if this looks like an options object
               if ('session' in arg || 'upsert' in arg || 'new' in arg || 'runValidators' in arg) {
-                const { session, ...cleanArg } = arg;
+                const { session: _session, ...cleanArg } = arg;
                 // Return clean options, preserving other important options
                 return Object.keys(cleanArg).length > 0 ? cleanArg : {};
               }

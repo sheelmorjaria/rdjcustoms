@@ -1,4 +1,4 @@
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { vi, describe, it, expect, beforeEach, afterEach as _afterEach } from 'vitest';
 
 // Mock AWS SES first
 const mockSend = vi.fn();
@@ -214,7 +214,7 @@ describe('Email Service - Account Status Notifications', () => {
     });
 
     it('should include current date in disabled email', async () => {
-      const currentDate = new Date().toLocaleDateString();
+      const _currentDate = new Date().toLocaleDateString();
       
       const result = await emailService.sendAccountDisabledEmail(mockUser, mockAdminUser);
 
@@ -226,7 +226,7 @@ describe('Email Service - Account Status Notifications', () => {
     });
 
     it('should include current date in re-enabled email', async () => {
-      const currentDate = new Date().toLocaleDateString();
+      const _currentDate = new Date().toLocaleDateString();
       
       const result = await emailService.sendAccountReEnabledEmail(mockUser, mockAdminUser);
 

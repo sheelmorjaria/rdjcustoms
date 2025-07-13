@@ -1,6 +1,6 @@
-import { vi, describe, it, test, expect, beforeEach, afterEach, beforeAll, afterAll } from 'vitest';
+import { vi, describe, it, test as _test, expect, beforeEach, afterEach as _afterEach, beforeAll as _beforeAll, afterAll as _afterAll } from 'vitest';
 import mongoose from 'mongoose';
-import { connectTestDatabase, disconnectTestDatabase, clearTestDatabase } from '../../test/setup.js';
+import { connectTestDatabase as _connectTestDatabase, disconnectTestDatabase as _disconnectTestDatabase, clearTestDatabase as _clearTestDatabase } from '../../test/setup.js';
 
 // Mock the Order model
 let mockOrderResolveValue = null;
@@ -47,7 +47,7 @@ const mockSession = {
   endSession: vi.fn(),
   inTransaction: vi.fn().mockReturnValue(false),
   withTransaction: vi.fn().mockImplementation(async (fn) => {
-    return await fn(mockSession);
+    return fn(mockSession);
   }),
   id: 'mock-session-id'
 };

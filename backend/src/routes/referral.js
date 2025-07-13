@@ -10,7 +10,7 @@ import { validate } from '../middleware/validation.js';
 const router = express.Router();
 
 // Validation middleware
-const validateReferralCode = [
+const _validateReferralCodeMiddleware = [
   param('referralCode')
     .isAlphanumeric()
     .isLength({ min: 8, max: 20 })

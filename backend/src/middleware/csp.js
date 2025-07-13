@@ -37,28 +37,28 @@ export const dynamicCSP = (req, res, next) => {
   
   // Build CSP header with dynamic nonce
   const cspDirectives = [
-    "default-src 'self'",
+    'default-src \'self\'',
     `script-src 'self' 'nonce-${nonce}' https://www.paypal.com https://www.paypalobjects.com https://js.paypal.com`,
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net",
-    "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net",
-    "img-src 'self' data: https: blob: https://www.paypal.com https://www.paypalobjects.com",
-    "object-src 'none'",
-    "media-src 'self' blob: data:",
-    "frame-src 'none' https://www.paypal.com https://www.sandbox.paypal.com",
-    "frame-ancestors 'none'",
-    "connect-src 'self' https://api.paypal.com https://api.sandbox.paypal.com https://api.coingecko.com https://www.blockonomics.co https://globee.com wss:",
-    "base-uri 'self'",
-    "form-action 'self'",
-    "manifest-src 'self'",
-    "worker-src 'self' blob:",
-    "child-src 'self'",
-    "report-uri /api/csp-report"
+    'style-src \'self\' \'unsafe-inline\' https://fonts.googleapis.com https://cdn.jsdelivr.net',
+    'font-src \'self\' https://fonts.gstatic.com https://cdn.jsdelivr.net',
+    'img-src \'self\' data: https: blob: https://www.paypal.com https://www.paypalobjects.com',
+    'object-src \'none\'',
+    'media-src \'self\' blob: data:',
+    'frame-src \'none\' https://www.paypal.com https://www.sandbox.paypal.com',
+    'frame-ancestors \'none\'',
+    'connect-src \'self\' https://api.paypal.com https://api.sandbox.paypal.com https://api.coingecko.com https://www.blockonomics.co https://globee.com wss:',
+    'base-uri \'self\'',
+    'form-action \'self\'',
+    'manifest-src \'self\'',
+    'worker-src \'self\' blob:',
+    'child-src \'self\'',
+    'report-uri /api/csp-report'
   ];
   
   // Add production-only directives
   if (process.env.NODE_ENV === 'production') {
-    cspDirectives.push("upgrade-insecure-requests");
-    cspDirectives.push("block-all-mixed-content");
+    cspDirectives.push('upgrade-insecure-requests');
+    cspDirectives.push('block-all-mixed-content');
   }
   
   const cspHeader = cspDirectives.join('; ');
@@ -204,18 +204,18 @@ export const routeSpecificCSP = {
     const nonce = req.nonce || generateNonce();
     
     const adminCSP = [
-      "default-src 'self'",
+      'default-src \'self\'',
       `script-src 'self' 'nonce-${nonce}'`, // No external scripts for admin
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data:",
-      "object-src 'none'",
-      "frame-src 'none'",
-      "frame-ancestors 'none'",
-      "connect-src 'self'",
-      "base-uri 'self'",
-      "form-action 'self'",
-      "upgrade-insecure-requests",
-      "block-all-mixed-content"
+      'style-src \'self\' \'unsafe-inline\'',
+      'img-src \'self\' data:',
+      'object-src \'none\'',
+      'frame-src \'none\'',
+      'frame-ancestors \'none\'',
+      'connect-src \'self\'',
+      'base-uri \'self\'',
+      'form-action \'self\'',
+      'upgrade-insecure-requests',
+      'block-all-mixed-content'
     ].join('; ');
     
     res.setHeader('Content-Security-Policy', adminCSP);
@@ -229,15 +229,15 @@ export const routeSpecificCSP = {
     const nonce = req.nonce || generateNonce();
     
     const paymentCSP = [
-      "default-src 'self'",
+      'default-src \'self\'',
       `script-src 'self' 'nonce-${nonce}' https://www.paypal.com https://www.paypalobjects.com https://js.paypal.com`,
-      "style-src 'self' 'unsafe-inline' https://www.paypal.com",
-      "img-src 'self' data: https://www.paypal.com https://www.paypalobjects.com",
-      "frame-src https://www.paypal.com https://www.sandbox.paypal.com",
-      "connect-src 'self' https://api.paypal.com https://api.sandbox.paypal.com",
-      "form-action 'self' https://www.paypal.com",
-      "object-src 'none'",
-      "base-uri 'self'"
+      'style-src \'self\' \'unsafe-inline\' https://www.paypal.com',
+      'img-src \'self\' data: https://www.paypal.com https://www.paypalobjects.com',
+      'frame-src https://www.paypal.com https://www.sandbox.paypal.com',
+      'connect-src \'self\' https://api.paypal.com https://api.sandbox.paypal.com',
+      'form-action \'self\' https://www.paypal.com',
+      'object-src \'none\'',
+      'base-uri \'self\''
     ].join('; ');
     
     res.setHeader('Content-Security-Policy', paymentCSP);
@@ -249,16 +249,16 @@ export const routeSpecificCSP = {
    */
   api: (req, res, next) => {
     const apiCSP = [
-      "default-src 'none'",
-      "script-src 'none'",
-      "style-src 'none'",
-      "img-src 'none'",
-      "object-src 'none'",
-      "frame-src 'none'",
-      "frame-ancestors 'none'",
-      "connect-src 'none'",
-      "base-uri 'none'",
-      "form-action 'none'"
+      'default-src \'none\'',
+      'script-src \'none\'',
+      'style-src \'none\'',
+      'img-src \'none\'',
+      'object-src \'none\'',
+      'frame-src \'none\'',
+      'frame-ancestors \'none\'',
+      'connect-src \'none\'',
+      'base-uri \'none\'',
+      'form-action \'none\''
     ].join('; ');
     
     res.setHeader('Content-Security-Policy', apiCSP);

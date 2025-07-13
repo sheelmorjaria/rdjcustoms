@@ -1,10 +1,10 @@
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { vi, describe, it, expect, beforeEach, afterEach as _afterEach } from 'vitest';
 import fs from 'fs/promises';
-import path from 'path';
+import _path from 'path';
 import sharp from 'sharp';
 import multer from 'multer';
 import { 
-  uploadProductImages, 
+  uploadProductImages as _uploadProductImages, 
   processProductImages, 
   deleteProductImages, 
   handleImageUploadError 

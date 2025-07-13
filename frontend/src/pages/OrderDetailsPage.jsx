@@ -340,6 +340,40 @@ const OrderDetailsPage = () => {
                     </div>
                   )}
 
+                  {/* Track Order Button */}
+                  {(order.status === 'shipped' || order.status === 'out_for_delivery' || order.status === 'delivered') && order.trackingNumber && (
+                    <div className="mt-6 pt-4 border-t border-gray-200">
+                      <Link
+                        to={`/orders/${orderId}/track`}
+                        className="btn btn-primary w-full sm:w-auto"
+                      >
+                        Track Order
+                      </Link>
+                      {order.trackingNumber && (
+                        <p className="text-sm text-gray-600 mt-2">
+                          Tracking Number: {order.trackingNumber}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Track Order Button */}
+                  {(order.status === 'shipped' || order.status === 'out_for_delivery' || order.status === 'delivered') && order.trackingNumber && (
+                    <div className="mt-6 pt-4 border-t border-gray-200">
+                      <Link
+                        to={`/orders/${orderId}/track`}
+                        className="btn btn-primary w-full sm:w-auto"
+                      >
+                        Track Order
+                      </Link>
+                      {order.trackingNumber && (
+                        <p className="text-sm text-gray-600 mt-2">
+                          Tracking Number: {order.trackingNumber}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
                   {/* Cancel Order Button */}
                   {canCancelOrder(order.status) && (
                     <div className="mt-6 pt-4 border-t border-gray-200">

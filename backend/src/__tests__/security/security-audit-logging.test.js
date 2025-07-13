@@ -251,7 +251,7 @@ describe('Security Audit Logging Tests', () => {
     test('should trigger alerts for critical events', () => {
       securityAuditLogger.logSecurityEvent(
         SECURITY_EVENT_TYPES.INPUT_VALIDATION.SQL_INJECTION,
-        { payload: "'; DROP TABLE users; --" }
+        { payload: '\'; DROP TABLE users; --' }
       );
 
       const criticalLog = mockLogs.find(log => log.msg === 'SECURITY CRITICAL');

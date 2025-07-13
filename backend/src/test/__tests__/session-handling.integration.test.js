@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll as _afterAll, beforeEach as _beforeEach, vi as _vi } from 'vitest';
 import mongoose from 'mongoose';
 import User from '../../models/User.js';
 import Order from '../../models/Order.js';
