@@ -170,7 +170,7 @@ describe('Cart Controller - Unit Tests', () => {
       expect(res.cookie).toHaveBeenCalledWith('cartSessionId', 'guest-mock-uuid-123', {
         httpOnly: true,
         secure: false, // NODE_ENV !== 'production'
-        sameSite: 'lax',
+        sameSite: 'lax', // 'lax' in development, 'none' in production
         maxAge: 30 * 24 * 60 * 60 * 1000
       });
       expect(res.json).toHaveBeenCalled();
@@ -686,7 +686,7 @@ describe('Cart Controller - Unit Tests', () => {
         expect.objectContaining({
           httpOnly: true,
           secure: false,
-          sameSite: 'lax',
+          sameSite: 'lax', // 'lax' in development, 'none' in production
           maxAge: 30 * 24 * 60 * 60 * 1000
         })
       );
