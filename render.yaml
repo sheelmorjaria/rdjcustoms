@@ -13,9 +13,7 @@ services:
       - key: PORT
         value: 3001
       - key: MONGODB_URI
-        fromDatabase:
-          name: rdjcustoms-db
-          property: connectionString
+        sync: false  # Set this manually in Render dashboard with your MongoDB Atlas connection string
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_REFRESH_SECRET
@@ -80,8 +78,8 @@ services:
         source: /*
         destination: /index.html
 
-databases:
-  - name: rdjcustoms-db
-    databaseName: rdjcustoms_production
-    user: rdjcustoms_user
-    plan: free
+# databases:
+  # Render only supports PostgreSQL. Use MongoDB Atlas for MongoDB:
+  # 1. Create free cluster at https://cloud.mongodb.com/
+  # 2. Get connection string
+  # 3. Add MONGODB_URI in Render dashboard environment variables
