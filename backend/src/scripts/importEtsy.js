@@ -48,7 +48,7 @@ class EtsyImporter {
   }
 
   async connectDatabase() {
-    const dbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/rdjcustoms-test-shared';
+    const dbUri = process.env.MONGODB_URI || 'mongodb+srv://revolution06:Gp5QVkzawQE9GL8t@rdjcustoms-db.dy3zidv.mongodb.net/?retryWrites=true&w=majority&appName=rdjcustoms-db';
     
     try {
       await mongoose.connect(dbUri, {

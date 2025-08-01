@@ -47,9 +47,10 @@ services:
         sync: false
     healthCheckPath: /api/health
     
-  # Frontend Static Site
-  - type: static
+  # Frontend Web Service (serving static files)
+  - type: web
     name: rdjcustoms-frontend
+    runtime: static
     repo: https://github.com/YOUR_GITHUB_USERNAME/rdjcustoms-monorepo
     branch: main
     rootDir: .
