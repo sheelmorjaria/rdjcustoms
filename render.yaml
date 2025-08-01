@@ -4,7 +4,6 @@ services:
     name: rdjcustoms-api
     runtime: node
     repo: https://github.com/YOUR_GITHUB_USERNAME/rdjcustoms-monorepo
-    branch: main
     rootDir: .
     buildCommand: npm run render:build:backend
     startCommand: npm run render:start:backend
@@ -52,7 +51,6 @@ services:
     name: rdjcustoms-frontend
     runtime: static
     repo: https://github.com/YOUR_GITHUB_USERNAME/rdjcustoms-monorepo
-    branch: main
     rootDir: .
     buildCommand: npm run render:build:frontend
     staticPublishPath: ./frontend/dist
@@ -86,4 +84,4 @@ databases:
   - name: rdjcustoms-db
     databaseName: rdjcustoms_production
     user: rdjcustoms_user
-    plan: starter
+    plan: free
