@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/sheel/Documents/rdjcustoms/backend/logs/.7ace7521bea71f9f24b6a8101da4ee94c1d1807d-audit.json",
+    "files": [
+        {
+            "date": 1754060519536,
+            "name": "/home/sheel/Documents/rdjcustoms/backend/logs/combined-2025-08-01.log",
+            "hash": "1e063678929376c796c3fbc9e38b3aaf0de3d1134cc644e1ba5874610ffebc72"
+        }
+    ],
+    "hashType": "sha256"
+}

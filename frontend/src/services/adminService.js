@@ -941,6 +941,39 @@ export const getInventoryReport = async () => {
 
 // Promotions Management
 
+// Get all categories
+export const getCategories = async () => {
+  try {
+    const token = localStorage.getItem('adminToken');
+    
+    if (!token) {
+      throw new Error('No authentication token found');
+    }
+
+    const response = await fetch(`${ADMIN_API_BASE}/categories`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      if (response.status === 401 || response.status === 403) {
+        localStorage.removeItem('adminToken');
+        window.location.href = '/admin/login';
+      }
+      throw new Error(data.error || 'Failed to fetch categories');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    throw error;
+  }
+};
+
 // Get all promotions
 export const getPromotions = async (params = {}) => {
   try {

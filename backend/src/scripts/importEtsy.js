@@ -48,7 +48,7 @@ class EtsyImporter {
   }
 
   async connectDatabase() {
-    const dbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/graphene-store';
+    const dbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/rdjcustoms-test-shared';
     
     try {
       await mongoose.connect(dbUri, {
