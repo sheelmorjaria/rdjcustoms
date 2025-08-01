@@ -28,9 +28,9 @@ const AdminPromotionsListPage = () => {
       const params = {
         page: currentPage,
         limit: itemsPerPage,
-        search: searchTerm,
-        type: filterType,
-        status: filterStatus
+        search: searchTerm || undefined,
+        ...(filterType && { type: filterType }),
+        ...(filterStatus && { status: filterStatus })
       };
 
       const response = await getPromotions(params);

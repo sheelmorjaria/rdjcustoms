@@ -183,7 +183,10 @@ export const getPromotionsValidator = [
   
   query('type')
     .optional()
-    .isIn(['percentage', 'fixed_amount', 'free_shipping']).withMessage('Invalid promotion type'),
+    .custom((value) => {
+      if (!value || value === '') return true;
+      return ['percentage', 'fixed_amount', 'free_shipping'].includes(value);
+    }).withMessage('Invalid promotion type'),
   
   query('status')
     .optional()

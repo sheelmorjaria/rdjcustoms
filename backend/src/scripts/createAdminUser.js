@@ -10,7 +10,7 @@ export const createAdminUser = async (adminData = null) => {
   try {
     // Connect to MongoDB only if not already connected (e.g., in tests)
     if (mongoose.connection.readyState === 0) {
-      const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/graphene-store';
+      const mongoURI = process.env.MONGODB_URI;
       await mongoose.connect(mongoURI);
       console.log('Connected to MongoDB');
       shouldDisconnect = true; // We made the connection, so we should disconnect
@@ -20,8 +20,8 @@ export const createAdminUser = async (adminData = null) => {
 
     // Admin user details
     const defaultAdminData = {
-      email: process.env.ADMIN_EMAIL || 'admin@grapheneos-store.com',
-      password: process.env.ADMIN_PASSWORD || 'Admin123!',
+      email: process.env.ADMIN_EMAIL,
+      password: process.env.ADMIN_PASSWORD,
       firstName: 'Admin',
       lastName: 'User',
       role: 'admin',

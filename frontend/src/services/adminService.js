@@ -983,7 +983,11 @@ export const getPromotions = async (params = {}) => {
       throw new Error('No authentication token found');
     }
 
-    const queryParams = new URLSearchParams(params).toString();
+    // Filter out undefined/null values
+    const filteredParams = Object.fromEntries(
+      Object.entries(params).filter(([_, value]) => value !== undefined && value !== null && value !== '')
+    );
+    const queryParams = new URLSearchParams(filteredParams).toString();
     const url = `${ADMIN_API_BASE}/promotions${queryParams ? '?' + queryParams : ''}`;
 
     const response = await fetch(url, {
