@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 const GeneralSettings = ({ onMessage }) => {
   const [settings, setSettings] = useState({
     storeName: '',
@@ -66,7 +68,7 @@ const GeneralSettings = ({ onMessage }) => {
       setLoading(true);
       const token = localStorage.getItem('adminToken');
       
-      const response = await fetch('/api/admin/settings/general', {
+      const response = await fetch(`${API_BASE_URL}/api/admin/settings/general`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -74,16 +76,25 @@ const GeneralSettings = ({ onMessage }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to load settings');
+        throw new Error(`Failed to load settings: ${response.status} ${response.statusText}`);
       }
 
-      const data = await response.json();
+      const responseText = await response.text();
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error('JSON parse error:', parseError);
+        console.error('Response text:', responseText);
+        throw new Error('Invalid response format from server');
+      }
+
       if (data.success) {
         setSettings(data.data);
       }
     } catch (error) {
       console.error('Load settings error:', error);
-      onMessage('Failed to load general settings', 'error');
+      onMessage(`Failed to load general settings: ${error.message}`, 'error');
     } finally {
       setLoading(false);
     }
@@ -142,7 +153,7 @@ const GeneralSettings = ({ onMessage }) => {
       setSaving(true);
       const token = localStorage.getItem('adminToken');
       
-      const response = await fetch('/api/admin/settings/general', {
+      const response = await fetch(`${API_BASE_URL}/api/admin/settings/general`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
