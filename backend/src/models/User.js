@@ -160,8 +160,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     sparse: true,
-    uppercase: true,
-    index: true
+    uppercase: true
   },
   referralStats: {
     totalReferrals: {
