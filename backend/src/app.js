@@ -43,6 +43,9 @@ app.use(dynamicCSP); // Dynamic CSP with nonce support
 // CORS configuration
 app.use(cors(corsConfig));
 
+// Health check endpoints (BEFORE rate limiting to prevent 429 errors)
+app.use('/api/health', healthRoutes);
+
 // Global rate limiting
 app.use('/api/', rateLimiters.general);
 
@@ -96,7 +99,6 @@ app.use('/api/admin', routeSpecificCSP.admin, adminRoutes);
 app.use('/api/payments', routeSpecificCSP.payment, paymentRoutes);
 app.use('/api/shipping', shippingRoutes);
 app.use('/api/support', supportRoutes);
-app.use('/api/health', healthRoutes);
 app.use('/api/internal/orders', internalOrderRoutes);
 app.use('/api/referral', referralRoutes);
 
