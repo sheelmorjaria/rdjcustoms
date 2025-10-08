@@ -178,7 +178,9 @@ export const corsConfig = {
       process.env.FRONTEND_URL,
       'http://localhost:3000',
       'http://localhost:5173',
-      'https://rdjcustoms-frontend.onrender.com'
+      'https://rdjcustoms-frontend.onrender.com',
+      'https://www.rdjcustoms.com',
+      'https://rdjcustoms.com'
     ].filter(Boolean);
 
     if (allowedOrigins.includes(origin)) {
