@@ -9,6 +9,11 @@
             "date": 1754060519536,
             "name": "/home/sheel/Documents/rdjcustoms/backend/logs/combined-2025-08-01.log",
             "hash": "1e063678929376c796c3fbc9e38b3aaf0de3d1134cc644e1ba5874610ffebc72"
+        },
+        {
+            "date": 1754167740209,
+            "name": "/home/sheel/Documents/rdjcustoms/backend/logs/combined-2025-08-02.log",
+            "hash": "d293a579f76809117761eea9417fd7792c38c4f0591ce1c3133c520c0c4a507a"
         }
     ],
     "hashType": "sha256"

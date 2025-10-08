@@ -421,7 +421,6 @@ userSchema.methods.updateReferralStats = function(type, amount = 0) {
 // Indexes for customer reports
 userSchema.index({ createdAt: 1, role: 1 }); // For customer acquisition reports
 userSchema.index({ role: 1, accountStatus: 1 }); // For user management queries
-userSchema.index({ referralCode: 1 }, { sparse: true }); // For referral lookups
 
 const User = mongoose.model('User', userSchema);
 

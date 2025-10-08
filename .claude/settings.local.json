@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(npm test:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(awk:*)",
+      "Bash(find:*)",
+      "Bash(npm run test:models:*)",
+      "Bash(npm run test:*)",
+      "Bash(node:*)",
+      "Bash(rm:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npx eslint:*)",
+      "WebFetch(domain:)",
+      "Bash(mv:*)",
+      "Bash(npx vitest run:*)",
+      "Bash(sed:*)",
+      "Bash(npx vitest:*)",
+      "Bash(timeout 30 npx vitest run src/controllers/__tests__/adminController.orderStatus.integration.test.js --reporter=basic 2 > /dev/null)",
+      "Bash(docker rm:*)",
+      "Bash(true)",
+      "Bash(timeout 30 npx vitest run:*)",
+      "Bash(timeout:*)",
+      "Bash(npx c8:*)",
+      "Bash(ls:*)"
+    ],
+    "deny": []
+  }
+}
